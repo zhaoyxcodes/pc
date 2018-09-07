@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "index/index",
+    "index/check/check",
+    
+    "index/check/check2"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "小区拼车",
+    "navigationBarTextStyle": "black"
+  }
+}

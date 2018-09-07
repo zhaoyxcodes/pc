@@ -1,0 +1,65 @@
+<view class="section">
+  <view class="table">
+    <block wx:for="{{attrdatalist}}" wx:key="item">
+    <checkbox-group bindchange="attrbind" data-attindex="{{index}}" data-attid="{{item.id}}" data-attname="{{item.attrname}}" >
+      <view class="tr">
+        <view class="td">{{item.attrname}}</view>
+        <view class="td" style="width:50%;text-align:left">
+        <block wx:for="{{item.attrval}}" wx:key="item1" wx:for-item="item1" wx:for-index="index1">
+           <checkbox value="{{index1}}"  />{{item1.name}}
+        </block>
+        </view>
+      </view>
+      </checkbox-group>
+    </block>
+  </view>
+  
+  <view class="layout_horizontal">
+      <block wx:for="{{checklist}}" wx:key="item">
+      <view style="width:50px;" wx:if="{{item.attrval.length>0}}">
+        <view  class="layout_vertical" style="width:50px;">
+        <view style="background-color:green;width:50px; "  >
+              {{item.attrname}}
+        </view>
+        <block wx:for="{{item.fornum}}" wx:key="item0" wx:for-item="item0">
+          <block wx:for="{{item.attrval}}" wx:key="item1" wx:for-item="item1">
+            <view style="background-color:green;width:50px; height:{{item.height}}px;"  >
+            {{item1.name}}
+            </view>
+          </block>
+        </block>
+        </view>
+      </view>
+      </block> 
+
+
+      <view style="width:50px;">
+        <view  class="layout_vertical" style="width:50px;">
+        <view style="background-color:green;width:50px; "  >
+              库存
+        </view>
+        <block wx:for="{{count}}" wx:key="item">
+            <view style="background-color:green;width:50px; height:{{heigthrpx}}px;"  >
+            <input style="width:20px" value="{{item}}" id="{{index}}" bindchange="countSKU"/>
+            </view>
+        </block>
+        </view>
+      </view>
+
+      <view style="width:50px;">
+        <view  class="layout_vertical" style="width:50px;">
+        <view style="background-color:green;width:50px; "  >
+              价格
+        </view>
+        <block wx:for="{{priceli}}" wx:key="item">
+            <view style="background-color:green;width:50px; height:{{heigthrpx}}px;"  >
+            <input style="width:20px" value="{{item}}"  id="{{index}}" bindchange="priceSKU"/>
+            </view>
+        </block>
+        </view>
+      </view>
+
+  </view>
+
+
+</view>

@@ -1,0 +1,62 @@
+<view class="section">
+  <view style="width:100%;text-align:right">
+    <input bindinput="addattrtitle" value="{{addtitle}}" />
+    <span bindtap="addattr">+</span>
+  </view>
+  <view class="table">
+    <block wx:for="{{attrdatalist}}">
+      <view class="tr">
+        <view class="td">{{item.attrname}}</view>
+        <view class="td" style="width:50%;text-align:left">
+          <input id="{{index}}" bindinput="attrbind" />
+        </view>
+        <view class="td" style="width:10%;">
+          <span bindtap="addvalue" id="{{index}}">+</span>
+          <span wx:if="{{item.id==0}}" bindtap="removeattr" id="{{index}}">-</span>
+        </view>
+      </view>
+      <view>
+        <label class="tag" wx:for="{{item.attrval}}" wx:for-item="item1" wx:for-index="index1">
+          <label>{{item1}}
+            <span class="remove" bindtap="remove" id="{{index1}}"  data-attid="{{index}}" >×</span>
+          </label>
+        </label>
+      </view>
+    </block>
+  </view>
+</view>
+
+<view >
+
+<view class="layout_horizontal">
+  <block wx:for="{{attrdatalist}}">
+  <view style="width:50px;">
+    <view  class="layout_vertical" style="width:50px;">
+    <view style="background-color:green;width:50px; "  >
+          {{item.attrname}}
+    </view>
+    <block wx:for="{{item.fornum}}" wx:for-item="item0">
+      <block wx:for="{{item.attrval}}" wx:for-item="item1">
+        <view style="background-color:green;width:50px; height:{{item.height}}px;"  >
+        {{item1}}
+        </view>
+      </block>
+    </block>
+    </view>
+  </view>
+   </block> 
+<view style="width:50px;">
+   <view  class="layout_vertical" style="width:50px;">
+        <view style="background-color:green;width:50px; "  >
+              jg
+          </view>
+       <block wx:for="{{attrSumSize}}" wx:for-item="item0"> 
+        <view style="flex:1;background-color:green;height:{{heigthrpx}}px;"  >
+        1
+        </view>
+       </block> 
+    </view>
+</view>
+</view>
+</view>
+

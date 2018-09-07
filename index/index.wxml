@@ -1,0 +1,31 @@
+<view class="tui-map-search" style="height: {{s_height}}">
+   <!-- <icon size='20' type='search' class='tui-map-search-icon'></icon>  -->
+  <input class="tui-map-input" placeholder="起点"  bindtap="getAddress" disabled="true" value="{{starttitle}}" id="start"  focus="{{focusStatus}}"></input>
+  <input class="tui-map-input" placeholder="终点"  bindtap="getAddress" disabled="true" value="{{endtitle}}" id="end" focus="{{focusStatus}}"></input>
+ <view class="layout_horizontal tui-map-input" wx:if="{{polyline.length>1}}" >选择线路： 
+ <view wx:for="{{polyline}}" bindtap="showline" id="{{index}}" wx:key="item" class="ul">
+      <view wx:if="{{index==checkindex&&index==0}}" class="active">默认</view><view wx:if="{{index!=checkindex&&index==0}}">默认</view>
+      <view wx:if="{{index==checkindex&&index!=0}}" class="active">线路{{index}}</view><view wx:if="{{index!=checkindex&&index!=0}}">线路{{index}}</view>
+  </view> 
+ </view>
+</view>
+
+<view class="tui-map" style="top:{{s_height}}">
+  <map id="map" longitude="{{currentLo}}" latitude="{{currentLa}}" scale="{{scale}}" markers="{{markers}}" polyline="{{polyline}}"  include-points="{{includePoints}}" show-location style="width: 100%; height: 100%;">
+
+    <cover-view class="text_box"  bindtouchstart="handletouchtart" bindtouchmove="handletouchmove" style="height: {{btn_height}}px;">
+      <cover-view class="map-1" style="right: 240rpx;">
+        <cover-image src="../img/che.png"></cover-image><cover-view >搭车</cover-view >
+      </cover-view>
+      <cover-view class="map-1">
+         <cover-image src="../img/jt.png"></cover-image><cover-view >我</cover-view >
+      </cover-view>
+       <cover-view class="h1 text">距离</cover-view >
+       <cover-view class="text">{{distance}}米大概需求{{duration}}分钟</cover-view >
+    </cover-view>
+
+
+  </map>
+</view>
+
+
