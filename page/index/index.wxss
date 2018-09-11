@@ -1,0 +1,133 @@
+.tab{float: left; width: 50px;text-align: center;padding: 10rpx 0;  font-size: 30rpx; }
+
+.topTabSwiper:after{content: ""; clear: both;display: block;}
+.tabBorer{border-bottom: 1px solid #f00; color: #f00;}
+.swiper{width: 100%;}
+.swiper_con{ width: 100%;}
+
+
+.tui-map-search{
+  width: 100%;
+}
+.ul .active{ 
+background: rgb(240, 235, 235);
+  /* background: -webkit-linear-gradient(rgb(240, 235, 235),rgb(240, 235, 235));
+  background: -moz-linear-gradient(top,rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%);  */
+}
+.ul {
+ width:20%;
+justify-content: center;
+ align-items: center;
+ display: flex;
+}
+.ul view{
+ width:60%;
+ height: 20px;
+ border-radius: 10rpx;
+justify-content: center;
+ align-items: center;
+ display: flex;
+}
+.tui-map-input{
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 30rpx;
+  margin-left: 25px;
+}
+.tui-map-search-icon{
+  position: absolute;
+  top: calc(50% - 10px);
+  left: 10px;
+}
+.tui-map{
+  width: 100%;
+/* height: calc(100% - 80rpx); */
+  position: absolute;
+  bottom:0; 
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+.tui-map-direction{
+  width: 32px;
+  height: 32px;
+  position: fixed;
+  right: 10px;
+  bottom: 80px;
+  z-index: 100000;
+}
+
+.tui-warn{
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+  color: lightseagreen;
+  font-size: 30rpx;
+}
+.tui-search-bottom{
+  height: 150px;
+  background: #fff;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+
+
+.text_box{
+   position: absolute;
+  left: 5px;
+  right: 5px;
+  bottom: 0px;
+  height: 100px;
+  background: #fff;
+  padding: 0 15px;
+  z-index: 100;
+}
+
+.text_box .text{
+  margin: 5px 0;
+  display: block;
+  font-size:12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.map-1{
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 120rpx;
+  background-color:#4D8AD7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color:#ffffff;
+  font-size: 34rpx;
+  position: absolute;
+  top:10px;
+  right: 40rpx;
+}
+.map-1 cover-image{
+  width: 60rpx;
+  height: 80rpx;
+}
+.h1{
+  margin: 15px 0;
+  font-size:15px;
+}
+/*横向布局  */
+.layout_horizontal{
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: row;
+}
+/*纵向布局  */
+.layout_vertical{
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: column;
+}
+
