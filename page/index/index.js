@@ -1,4 +1,5 @@
 var amapFile = require('../../amap-wx.js');
+var utils = require('../../utils.js');
 const app = getApp()
 Page({
   data: {
@@ -27,14 +28,19 @@ Page({
     scale: 16,
     checkindex: 0,
 
-
+	phone:'18717370370',
+	checkboxlist:'',
+    peplenum:[1, 2, 3, 4, 5, 6],//乘坐人数
+    pepleindex: 0,
     multiArray: [],
     multiIndex: [0, 0, 0],
     currentData: 0,
   },
   onLoad() {
     var _this = this;
+
     wx.getLocation({
+      type: 'gcj02', 
       success(res) {
         _this.setData({
           currentLo: res.longitude,
@@ -46,13 +52,16 @@ Page({
             latitude: res.latitude
           }]
         });
+       
+
       }
     })
-
-    this.data.multiArray = [['9月10日 今天', '9月11日 周二', '9月11日 周三', '9月11日 周四'], ['0点', '1点', '2点', '3点', '4点', '5点'], ['00分', '10分', '20分', '30分', '40分', '50分']]
-
+    
+	
+    this.data.multiArray =utils.getDay()
     this.setData({
       multiArray: this.data.multiArray,
+	  multiIndex:[0,new Date().getHours(),0]
     })
   },
   handletouchtart(e) {
@@ -164,7 +173,7 @@ Page({
           imgurl = '../../img/mapicon_navi_s.png'
           _this.setData({
             polyline: [],
-            starttitle: res.address,
+            starttitle: res.name,
             currentLo: res.longitude,
             currentLa: res.latitude,
           });
@@ -172,7 +181,7 @@ Page({
           imgurl = '../../img/mapicon_navi_e.png'//end
           _this.setData({
             polyline: [],
-            endtitle: res.address,
+            endtitle: res.name,
             newCurrentLo: res.longitude,
             newCurrentLa: res.latitude,
           });
@@ -181,7 +190,7 @@ Page({
           id: e.currentTarget.id,
           longitude: res.longitude,
           latitude: res.latitude,
-          title: res.address,
+          title: res.name,
           iconPath: imgurl,
           width: 23,
           height: 33
@@ -215,7 +224,7 @@ Page({
           imgurl = '../../img/mapicon_navi_s.png'
           _this.setData({
             polyline: [],
-            starttitle2: res.address,
+            starttitle2: res.name,
             currentLo2: res.longitude,
             currentLa2: res.latitude,
           });
@@ -223,7 +232,7 @@ Page({
           imgurl = '../../img/mapicon_navi_e.png'//end
           _this.setData({
             polyline: [],
-            endtitle2: res.address,
+            endtitle2: res.name,
             newCurrentLo2: res.longitude,
             newCurrentLa2: res.latitude,
           });
@@ -232,7 +241,7 @@ Page({
           id: e.currentTarget.id,
           longitude: res.longitude,
           latitude: res.latitude,
-          title: res.address,
+          title: res.name,
           iconPath: imgurl,
           width: 23,
           height: 33
@@ -290,7 +299,15 @@ Page({
             dottedLine: dottedLine
           })
         }
-
+        if (self.data.polyline.length > 1) {
+          self.setData({
+            s_height: self.data.s_height+140
+          });
+        } else {
+          self.setData({
+            s_height: 330//page2
+          });
+        }
         for (var b = 0; b < self.data.markers.length; b++) {
           points2.push({
             longitude: self.data.markers[b].longitude,
@@ -330,6 +347,7 @@ Page({
   goTo(e) {
     this.getPolyline();
   },
+  //选择时间
   bindMultiPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
@@ -365,9 +383,14 @@ Page({
       })
     }
   },
+  bindPickerChange: function (e) {
+    this.setData({
+      pepleindex: e.detail.value
+    })
+  },
   w_height(current) {
     console.log(current)
-    var s_height = 400;
+    var s_height = 330;//page2
     if (current == 0) {
       s_height = 260;
     }
@@ -375,5 +398,45 @@ Page({
       s_height: s_height
     })
 
+  },
+  checkboxChange: function(e) {
+ console.log(e.detail.value)
+	 this.setData({
+      checkboxlist:  e.detail.value
+    })
+  },
+  fb:function(){
+	 var bool = app.islogin()
+     if (!bool) {
+		  wx.navigateTo({
+            url: '../login/login',
+          })
+		 return false;
+	 }
+	if(checkboxlist.length<=0){
+		return false;
+	}else if(this.data.phone.length<=0){
+		return false;
+	}
+	this.data.polyline
+    wx.request({
+      url: 'https://zhao/pc/car/insertCar',
+      data: {
+		markers:JSON.stringify(this.data.markers),
+		polyline:,
+		peplenum:this.data.peplenum,
+		phone:this.data.phone,
+		date:JSON.stringify(this.data.multiIndex),
+		user: wx.getStorageSync("user")
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res2) {
+        console.log(res2)
+        
+      }
+    })
   }
 })

@@ -11,11 +11,9 @@
 }
 .ul .active{ 
 background: rgb(240, 235, 235);
-  /* background: -webkit-linear-gradient(rgb(240, 235, 235),rgb(240, 235, 235));
-  background: -moz-linear-gradient(top,rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%);  */
 }
 .ul {
- width:20%;
+ width:30%;
 justify-content: center;
  align-items: center;
  display: flex;
@@ -33,6 +31,9 @@ justify-content: center;
   line-height: 70rpx;
   font-size: 30rpx;
   margin-left: 25px;
+}
+.w_input{
+  width:65%;
 }
 .tui-map-search-icon{
   position: absolute;
@@ -110,7 +111,26 @@ justify-content: center;
   top:10px;
   right: 40rpx;
 }
-.map-1 cover-image{
+.map-me{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 120rpx;
+  background-color:#fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color:#ffffff;
+  font-size: 34rpx;
+  position: absolute;
+  bottom:20px;
+  right: 40rpx;
+}
+.map-me cover-image{
+  width: 60rpx;
+  height: 80rpx;
+}
+.map-1 image{
   width: 60rpx;
   height: 80rpx;
 }

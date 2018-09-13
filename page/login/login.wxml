@@ -1,0 +1,5 @@
+<view class="backview">
+</view>
+<view class="authview">
+<button  open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">微信用户快速登录</button>
+</view>

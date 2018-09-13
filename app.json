@@ -1,7 +1,11 @@
 {
   "pages": [
+       
     "page/index/index",
-    "page/release/release"
+    "page/release/release",
+    "page/login/login"
+    
+
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,19 +1,27 @@
 <view style="height: 30rpx;">
   <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>乘客</view>
   <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>车主</view>
+  <view style="float: right;text-align: right;padding-right: 20rpx; width:120px;" wx:if="{{currentData==1}}"> <view  style="margin-right:10px; font-size: 32rpx;" bindtap='fb'>发布</view></view>
 </view>
 <swiper current="{{currentData}}" class='swiper' style="height:{{s_height}}rpx;" duration="300" bindchange="bindchange">
   <swiper-item>
     <view class="tui-map-search" style="height: 100%;width: 100%;">
       <!-- <icon size='20' type='search' class='tui-map-search-icon'></icon>  -->
-      <input class="tui-map-input" placeholder="起点" bindtap="getAddress" disabled="true" value="{{starttitle}}" id="start"></input>
-      <input class="tui-map-input" placeholder="终点" bindtap="getAddress" disabled="true" value="{{endtitle}}" id="end"></input>
+      <input class="tui-map-input w_input" placeholder="起点" bindtap="getAddress" disabled="true" value="{{starttitle}}" id="start"></input>
+      <input class="tui-map-input w_input" placeholder="终点" bindtap="getAddress" disabled="true" value="{{endtitle}}" id="end"></input>
 
-      <picker class="tui-map-input" mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-        <view class="picker">
-          {{multiArray[0][multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}}{{multiArray[2][multiIndex[2]]}}
+      <picker class=" tui-map-input" style="width:100%;"  mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+        <view class="picker"  style="margin-left: -7px; ">
+          {{multiArray[0][multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}}{{multiArray[2][multiIndex[2]]}}出发
         </view>
       </picker>
+
+      <view class="map-1" style="right:40rpx;">
+        <image src="../../img/che.png"></image>
+        <view>搭车</view>
+      </view>
+
+
     </view>
   </swiper-item>
   <swiper-item>
@@ -23,27 +31,51 @@
       <input class="tui-map-input" placeholder="起点" bindtap="getAddress2" disabled="true" value="{{starttitle2}}" id="start"></input>
       <input class="tui-map-input" placeholder="终点" bindtap="getAddress2" disabled="true" value="{{endtitle2}}" id="end"></input>
 
-      <picker class="tui-map-input" mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+      <view class="layout_horizontal tui-map-input" style="width:100%">乘坐
+        <picker bindchange="bindPickerChange" value="{{pepleindex}}" range="{{peplenum}}" style='width:20px; margin-left: 10px;'>
+          <view >
+           {{peplenum[pepleindex]}}
+          </view>
+        </picker>
+人
+        <picker class="tui-map-input" mode="multiSelector"  bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
         <view class="picker">
           {{multiArray[0][multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}}{{multiArray[2][multiIndex[2]]}}
         </view>
-      </picker>
+      </picker>出发
+    </view> 
+ <input class="tui-map-input" placeholder="手机号" bindtap="getphone" value="{{phone}}" ></input>
+      
 
-      <view class="layout_horizontal tui-map-input" wx:if="{{polyline.length>1}}">选择线路：
-        <view wx:for="{{polyline}}" bindtap="showline" id="{{index}}" wx:key="item" class="ul">
-          <view wx:if="{{index==checkindex&&index==0}}" class="active">默认</view>
-          <view wx:if="{{index!=checkindex&&index==0}}">默认</view>
-          <view wx:if="{{index==checkindex&&index!=0}}" class="active">线路{{index}}</view>
-          <view wx:if="{{index!=checkindex&&index!=0}}">线路{{index}}</view>
+    
+    <checkbox-group bindchange="checkboxChange" style="width:100%">
+      <view class=" layout_horizontal tui-map-input" style="margin-left:21px;" wx:if="{{polyline.length>1}}">
+      线路
+        <view wx:for="{{polyline}}"  wx:key="item" class="ul">
+          <view wx:if="{{index==0}}"><checkbox value="{{index}}" style='width:10px' checked="true"/></view>
+          <view wx:if="{{index!=0}}"><checkbox value="{{index}}" style='width:10px' /></view>
+          <view wx:if="{{index==checkindex&&index==0}}" class="active" bindtap="showline" id="{{index}}"> 默认</view>
+          <view wx:if="{{index!=checkindex&&index==0}}"bindtap="showline" id="{{index}}" > 默认</view>
+          <view wx:if="{{index==checkindex&&index!=0}}" class="active" bindtap="showline" id="{{index}}">线路{{index}}</view>
+          <view wx:if="{{index!=checkindex&&index!=0}}" bindtap="showline" id="{{index}}"> 线路{{index}}</view>
         </view>
+
       </view>
+    </checkbox-group>
+   
+       <view  wx:if="{{polyline.length>1}}" class="tui-map-input" style="color:#ccc">线路{{distance}}米大概需求{{duration}}分钟,选择多条线路会提升上座率。</view>
+   
     </view>
   </swiper-item>
 </swiper>
 
 
 <view class="tui-map" style="top:{{s_height+30}}rpx;">
-  <map id="map" longitude="{{cuLo}}" latitude="{{cuLa}}" scale="{{scale}}" markers="{{markers}}" polyline="{{polyline}}" include-points="{{includePoints}}" show-location style="width:  100%; height: 100%;">
+  <map id="map" longitude="{{cuLo}}" latitude="{{cuLa}}" scale="{{scale}}" markers="{{markers}}" polyline="{{polyline}}" include-points="{{includePoints}}"  style="width:  100%; height: 100%;" show-location> <!--bindregionchange="controltap"-->
+   <cover-view class="map-me" style="right: 50rpx;">
+        <cover-image src="../../img/me.png"></cover-image>
+        <cover-view>搭车</cover-view>
+      </cover-view>
     <!-- display:{{dnone}};
     <cover-view class="text_box" bindtouchstart="handletouchtart" bindtouchmove="handletouchmove" style="height: {{btn_height}}px;">
       <cover-view class="map-1" style="right: 240rpx;">
