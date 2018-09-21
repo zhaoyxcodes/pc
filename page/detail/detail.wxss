@@ -1,0 +1,28 @@
+/*横向布局  */
+.layout_horizontal{
+  font-size:12px;
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: row;
+}
+.detail{
+  margin-left: 20rpx;margin-right: 20rpx;
+  font-size:12px;
+}
+.order-class{
+  background-color:#fff;
+  height: 30px;
+  vertical-align: middle;
+  font-size:15px;
+  color:#C60;
+}
+.title {
+  font-size: 30rpx;
+    border-radius: 5rpx;
+  /* 超出的文本内容隐藏 */ 
+overflow: hidden;
+/* 超出显示省略号 */ 
+text-overflow: ellipsis;
+/* 强制不换行 */ 
+white-space: nowrap;
+ }

@@ -1,0 +1,4 @@
+ .line {
+   background-color:rgb(224, 223, 223);
+   height: 3rpx;
+}

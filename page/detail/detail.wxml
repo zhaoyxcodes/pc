@@ -1,0 +1,60 @@
+
+<view class="detail">
+      <view style="font-size:13px; width:100%;margin-top:10px" class="layout_horizontal">
+        <view style="margin-left:0px;align-items:center; justify-content: center;display:flex;"><image src="{{detailjson.img}}" style="width:34px;height:34px;border-radius:50%" />
+        <text space="nbsp">  {{detailjson.username}}   </text></view>
+        <view  style="align-items:center; justify-content: center;display:flex;">iphone</view>
+      </view>
+      <view style="margin-top:10px;">
+        起点：
+        <text class="title"  decode="emsp"style="margin-left:0px;background-color:rgb(232, 208, 236);">&emsp;{{detailjson.start_title}}&emsp;</text>
+       </view>
+       <view style="margin-top:10px">
+        终点：<text class="title" decode="emsp" style="margin-right:0px;background-color:rgb(208, 227, 236);">&emsp;{{detailjson.end_title}}&emsp;</text>
+       </view>
+       <view class="layout_horizontal" style="margin-top:10px">
+      <view wx:if="{{detailjson.everyday==1}}">每天{{detailjson.dayHName}}</view>
+       <view wx:if="{{detailjson.everyday==0}}">{{detailjson.startdate}}</view>出发
+       <view >剩余{{detailjson.peplenum}}个空位</view>
+      </view>
+
+      <view style="width:100%;height:400rpx;margin-top:10px">
+	 <map id="map" longitude="{{cuLo}}" latitude="{{cuLa}}" scale="{{scale}}" markers="{{markers}}" polyline="{{polyline}}" include-points="{{includePoints}}"  style="width:  100%; height: 100%;" > 
+	</map>
+      </view>
+      <view  style="margin-top:10px">
+        车费：<input  placeholder="每公里1元计算" bindinput="bindoffer"  value="{{offer}}" ></input>
+      </view>
+       <view  style="margin-top:10px">
+        电话：<input   bindinput="bindphone"  value="{{phone}}" ></input>
+      </view>
+      <view  style="margin-top:10px">
+        备注：<textarea bindblur="bindTextAreaBlur" auto-height value="{{remark}}"></textarea>
+      </view>
+      <view  style="margin-top:10px">
+      
+<form bindsubmit="reservation" report-submit='true' >
+	 <button type="default" form-type="submit" style="background-color:#f0c14b; border-color:#a88734 #9c7e31 #846a29" >预定</button>
+</form>
+      </view>
+
+
+      <view style="margin-top:10px">
+	  <view class="order-class">占位名单</view>
+	  <view style="margin-top:10px">
+	      <view class="line" ></view>
+	      <view class="layout_horizontal" style="line-height:30px" >
+		        <view style="width:100px;text-align:right">zyx</view>
+		        <view style="flex:1;"><text space="nbsp">   132*****370    </text></view>
+	      </view>
+	      <view class="line"></view>
+	      <view class="layout_horizontal" style="line-height:30px">
+          <view style="width:100px;text-align:right">小豌豆</view>
+          <view style="flex:1;"><text space="nbsp">   132*****370    </text></view>
+	      </view>
+        <view class="line" ></view>
+	  </view>
+       </view>
+
+	
+</view>

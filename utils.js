@@ -1,46 +1,135 @@
-
-function getDay(){
-	var date=new Date();
-	var day=['Ã¿Ìì'];
-	day.push((date.getMonth()+1)+'ÔÂ'+date.getDate()+'ÈÕ ½ñÌì');
-	for(var i=1;i<=3;i++){
-		date.setDate(date.getDate()+1);
-		day.push((date.getMonth()+1)+'ÔÂ'+date.getDate()+'ÈÕ '+week_str(date.getDay()));
-	}
-	var hour=[]
-	for(var i=0;i<24;i++){
-		if(i<=9){
-			hour.push("0"+i+"µã");
-		}else{
-		hour.push(i+"µã");
-		}
-		
-	}
-	var mm=[]
-	for(var i=0;i<12;i++){
-		if(i<2){
-			mm.push("0"+(i*5)+"·Ö");
-		}else{
-			mm.push((i*5)+"·Ö");
-		}
-	}
-	return [day,hour,mm];
+//å¤–éƒ¨å¯ç”¨
+const app = getApp()
+module.exports = {
+  getDay: getDay,
+  showModal: showModal,
+  getDayName: getDayName,
+  GL_DIS: GL_DIS,
+  timeStamp:timeStamp,
+  geompoint: geompoint,
+  getDQSJ: getDQSJ
 }
-function week_str(week){
-	if (week == 0) {  
-			str = "ĞÇÆÚÈÕ";  
-	} else if (week == 1) {  
-			str = "ĞÇÆÚÒ»";  
-	} else if (week == 2) {  
-			str = "ĞÇÆÚ¶ş";  
-	} else if (week == 3) {  
-			str = "ĞÇÆÚÈı";  
-	} else if (week == 4) {  
-			str = "ĞÇÆÚËÄ";  
-	} else if (week == 5) {  
-			str = "ĞÇÆÚÎå";  
-	} else if (week == 6) {  
-			str = "ĞÇÆÚÁù";  
-	} 
-	return str;
+
+function getDQSJ() {
+  var time = new Date();   
+  var m = time.getMonth() + 1;
+  var t = time.getFullYear() + "-" + m + "-"
+    + time.getDate() + " " + time.getHours() + ":"
+    + time.getMinutes() + ":" + time.getSeconds();
+  return t;
+};
+function geompoint(geom){
+  if (geom.length > 0 && geom.indexOf("POINT")!=-1){
+    var edngeomp = geom.substring(6, geom.length - 1);
+    var endgeom = edngeomp.split(" ");
+    return endgeom
+  }
+  return [];
+}
+// å°†åˆ†é’Ÿæ•°é‡è½¬æ¢ä¸ºå°æ—¶å’Œåˆ†é’Ÿå­—ç¬¦ä¸²
+function timeStamp(StatusMinute) {
+  var day = parseInt(StatusMinute / 60 / 24);
+  var hour = parseInt(StatusMinute / 60 % 24);
+  var min = parseInt(StatusMinute % 60);
+  StatusMinute = "";
+  if (day > 0) {
+    StatusMinute = day + "å¤©";
+  }
+  if (hour > 0) {
+    StatusMinute += hour + "å°æ—¶";
+  }
+  if (min > 0) {
+    StatusMinute += parseFloat(min) + "åˆ†é’Ÿ";
+  }
+  return StatusMinute;
+}
+function GL_DIS(distance){
+  if (distance < 1000)
+    return Math.floor(distance) + "ç±³";
+  else if (distance >= 1000)
+    return (Math.round(distance / 100) / 10).toFixed(1) + "å…¬é‡Œ"
+}
+function getDayName(hh){
+  console.log(hh)
+  if (hh.length <= 0 && hh.indexOf(":")!=-1){
+    return "";
+  }
+  var hlist=hh.split(":");
+  var h=hlist[0].substring(hlist[0].length-2);
+  var dname ="æ™šä¸Š";
+  var hhval = parseInt(h);
+  if (hhval < 6 && hhval>=4){
+    dname ="å‡Œæ™¨"; 
+  } else if (hhval >= 6 && hhval <8) {
+    dname = "æ—©ä¸Š";
+  } else if (hhval >= 8 && hhval <12) {
+    dname = "ä¸Šåˆ";
+  } else if (hhval < 15 && hhval >= 12) {
+    dname = "ä¸­åˆ";
+  } else if (hhval < 18 && hhval >= 15) {
+    dname = "ä¸‹åˆ";
+  } else if (hhval < 20 && hhval >= 18) {
+    dname = "å‚æ™š";
+  }
+  return dname + h +":"+ hlist[1];
+}
+function showModal(title, content, showCancel) {
+  wx.showModal({
+    title: title, showCancel: showCancel,
+    content: content,
+    success: function (res) { }
+  })
+}
+function mmm(title){
+  wx.showToast({
+    title: title,
+    image: '../Image/error.png',
+    duration: 2000
+  })
+}
+function getDay() {
+  var date = new Date();
+  var day = ['æ¯å¤©'];
+  day.push((date.getMonth() + 1) + 'æœˆ' + date.getDate() + 'æ—¥ ä»Šå¤©');
+  for (var i = 1; i <= 3; i++) {
+    date.setDate(date.getDate() + 1);
+    day.push((date.getMonth() + 1) + 'æœˆ' + date.getDate() + 'æ—¥ ' + week_str(date.getDay()));
+  }
+  var hour = []
+  for (var i = 0; i < 24; i++) {
+    if (i <= 9) {
+      hour.push("0" + i + "ç‚¹");
+    } else {
+      hour.push(i + "ç‚¹");
+    }
+
+  }
+  var mm = []
+  for (var i = 0; i < 12; i++) {
+    if (i < 2) {
+      mm.push("0" + (i * 5) + "åˆ†");
+    } else {
+      mm.push((i * 5) + "åˆ†");
+    }
+  }
+  return [day, hour, mm];
+}
+function week_str(week) {
+  var str="";
+  if (week == 0) {
+    str = "æ˜ŸæœŸæ—¥";
+  } else if (week == 1) {
+    str = "æ˜ŸæœŸä¸€";
+  } else if (week == 2) {
+    str = "æ˜ŸæœŸäºŒ";
+  } else if (week == 3) {
+    str = "æ˜ŸæœŸä¸‰";
+  } else if (week == 4) {
+    str = "æ˜ŸæœŸå››";
+  } else if (week == 5) {
+    str = "æ˜ŸæœŸäº”";
+  } else if (week == 6) {
+    str = "æ˜ŸæœŸå…­";
+  }
+  return str;
 }

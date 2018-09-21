@@ -1,41 +1,40 @@
-<view class="tui-map-search" style="height: {{s_height}}">
-   <!-- <icon size='20' type='search' class='tui-map-search-icon'></icon>  -->
+ <view style="width: 100%;">
+      <input class="tui-map-input"   disabled="true" value="{{markers[0].title}}"></input>
+      <input class="tui-map-input"  disabled="true" value="{{markers[1].title}}" ></input>
+</view>
 
-  <input class="tui-map-input" placeholder="起点"  bindtap="getAddress" disabled="true" value="{{starttitle}}" id="start"  focus="{{focusStatus}}"></input>
-  <input class="tui-map-input" placeholder="终点"  bindtap="getAddress" disabled="true" value="{{endtitle}}" id="end" focus="{{focusStatus}}"></input>
+<view class="layout_horizontal sort">
+<view>推荐线路</view><view >线路优先</view>
+</view>
 
 
-  <picker class="tui-map-input"  mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-    <view class="picker">
-      {{multiArray[0][multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}}{{multiArray[2][multiIndex[2]]}}
+<view class="container" style="padding:0rpx">
+  <!--垂直滚动，这里必须设置高度-->
+  <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad" bindscroll="scroll">
+    <view class="item" wx:for="{{list}}" wx:key="item" >
+      <!-- <image class="img" src="{{item.pic_url}}"></image> -->
+      <view bindtap='linkDetail' id="{{item.lineid}}">
+        <view class="layout_horizontal">
+          <text class="title"  decode="emsp"style="margin-left:0px;background-color:rgb(232, 208, 236);">&emsp;{{item.start_title}}&emsp;</text>
+          <text class="title" decode="emsp" style="margin-right:5px;background-color:rgb(208, 227, 236);">&emsp;{{item.end_title}}&emsp;</text>
+          <text  style="margin-right:0px">{{item.GL_minstart}}</text>
+          </view>
+       <view class="layout_horizontal">全程{{item.GL_distance}}大概{{item.XS_duration}}</view>
+        <view class="layout_horizontal">
+        <view wx:if="{{item.everyday==1}}">每天{{item.dayHName}}</view>
+        <view wx:if="{{item.everyday==0}}">{{item.startdate}}</view>出发
+        <view >剩余{{item.peplenum}}个空位</view>
+        </view>
+        <view class="layout_horizontal"  style=" font-size: 28rpx;">
+          <text  style="margin-left:0px">沿途在（{{endjltitle[index]}}）下车后步行{{item.GL_minend}}到达终点</text>
+        </view>
+      </view>
+        <view class="line" style="margin-top:10px"></view>
     </view>
-  </picker>
-
-
- <view class="layout_horizontal tui-map-input" wx:if="{{polyline.length>1}}" >选择线路： 
- <view wx:for="{{polyline}}" bindtap="showline" id="{{index}}" wx:key="item" class="ul">
-      <view wx:if="{{index==checkindex&&index==0}}" class="active">默认</view><view wx:if="{{index!=checkindex&&index==0}}">默认</view>
-      <view wx:if="{{index==checkindex&&index!=0}}" class="active">线路{{index}}</view><view wx:if="{{index!=checkindex&&index!=0}}">线路{{index}}</view>
-  </view> 
- </view>
+  </scroll-view>
+  <view class="body-view">
+    <loading hidden="{{hidden}}" bindchange="loadingChange">
+      加载中...
+    </loading>
+  </view>
 </view>
-
-<view class="tui-map" style="top:{{s_height}}">
-  <map id="map" longitude="{{currentLo}}" latitude="{{currentLa}}" scale="{{scale}}" markers="{{markers}}" polyline="{{polyline}}"  include-points="{{includePoints}}" show-location style="width: 100%; height: 100%;">
-
-    <cover-view class="text_box"  bindtouchstart="handletouchtart" bindtouchmove="handletouchmove" style="height: {{btn_height}}px;">
-      <cover-view class="map-1" style="right: 240rpx;">
-        <cover-image src="../../img/che.png"></cover-image><cover-view >搭车</cover-view >
-      </cover-view>
-      <cover-view class="map-1">
-         <cover-image src="../../img/jt.png"></cover-image><cover-view >我</cover-view >
-      </cover-view>
-       <cover-view class="h1 text">距离</cover-view >
-       <cover-view class="text">{{distance}}米大概需求{{duration}}分钟</cover-view >
-    </cover-view>
-
-
-  </map>
-</view>
-
-

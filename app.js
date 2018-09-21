@@ -3,13 +3,15 @@ App({
    
   },
   globalData: {
+    access_token:null,
     w_height: null,
     w_width:null,
-    userInfo:null
+    userInfo:null,
+    cuLo: null,
+    cuLa: null, //当前
   },
   onLaunch: function () {
     var that=this;
-    
     wx.getSystemInfo({
       success: function (res) {
         that.globalData.w_width = res.windowWidth
@@ -17,7 +19,6 @@ App({
       }
     })
   }
-
   ,
   getLogin: function (success1) {
     var that = this;
@@ -27,6 +28,7 @@ App({
           wx.getUserInfo({
             success: function (res1) {
               var userInfo = res1.userInfo;
+              console.log(1)
               wx.request({
                 url: 'https://zhao/pc/login/get3drSessionKey',
                 data: {
@@ -58,9 +60,9 @@ App({
   ,
    islogin(){
     var user = wx.getStorageSync("user")
-      console.log("islogin:" + user)
+      console.log( user)
       if(user != null && user != '' && typeof (user) != "undefined"){
-      app.globalData.userInfo = user;
+      this.globalData.userInfo = user;
       return true;
     }
     return false;

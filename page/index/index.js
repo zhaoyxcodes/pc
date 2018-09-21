@@ -3,34 +3,40 @@ var utils = require('../../utils.js');
 const app = getApp()
 Page({
   data: {
-    c_x: 0, c_y: 0,
+    c_x: 0,
+    c_y: 0,
     max_height: app.globalData.w_height,
     max_width: app.globalData.w_width,
     btn_height: 100,
     s_height: 260,
     key: '6f2ae22158f09ae7777a720c072deeb8',
-    cuLo: null, cuLa: null,//当前
-    currentLo: null,//起
+    cuLo: null,
+    cuLa: null, //当前
+    currentLo: null, //起
     currentLa: null,
-    newCurrentLo: null,//终
+    newCurrentLo: null, //终
     newCurrentLa: null,
-    starttitle: "", endtitle: "",
+    starttitle: "",
+    endtitle: "",
 
-    currentLo2: null,//起
+    currentLo2: null, //起
     currentLa2: null,
-    newCurrentLo2: null,//终
+    newCurrentLo2: null, //终
     newCurrentLa2: null,
-    starttitle2: "", endtitle2: "",
+    starttitle2: "",
+    endtitle2: "",
 
     distance: 0,
     duration: 0,
-    markers: [], polyline: [], includePoints: [],
+    markers: [],
+    polyline: [],
+    includePoints: [],
     scale: 16,
     checkindex: 0,
 
-	phone:'18717370370',
-	checkboxlist:'',
-    peplenum:[1, 2, 3, 4, 5, 6],//乘坐人数
+    p_phone: '18717370370',
+    checkboxlist: [],
+    peplenum: [1, 2, 3, 4, 5, 6], //乘坐人数
     pepleindex: 0,
     multiArray: [],
     multiIndex: [0, 0, 0],
@@ -40,7 +46,7 @@ Page({
     var _this = this;
 
     wx.getLocation({
-      type: 'gcj02', 
+      type: 'gcj02',
       success(res) {
         _this.setData({
           currentLo: res.longitude,
@@ -52,16 +58,17 @@ Page({
             latitude: res.latitude
           }]
         });
-       
+        app.globalData.cuLo = res.longitude
+        app.globalData.cuLa = res.latitude
 
       }
     })
-    
-	
-    this.data.multiArray =utils.getDay()
+
+
+    this.data.multiArray = utils.getDay()
     this.setData({
       multiArray: this.data.multiArray,
-	  multiIndex:[0,new Date().getHours(),0]
+      multiIndex: [0, new Date().getHours(), 0]
     })
   },
   handletouchtart(e) {
@@ -69,7 +76,8 @@ Page({
     let pageY = e.touches[0].pageY;
     console.log(pageX + "    |    " + pageY)
     this.setData({
-      c_x: pageX, c_y: pageY
+      c_x: pageX,
+      c_y: pageY
     })
   },
   handletouchmove(e) {
@@ -87,8 +95,7 @@ Page({
 
       })
 
-    }
-    else if (ty > 0) {
+    } else if (ty > 0) {
       text = "向下滑动"
       this.setData({
         btn_height: 100
@@ -106,20 +113,22 @@ Page({
       distance: 0,
       duration: 0,
       checkindex: 0,
-      markers: [], polyline: [], includePoints: []
+      markers: [],
+      polyline: [],
+      includePoints: []
     });
-    if (pagenum == 0 && this.data.currentLo != null && this.data.currentLa != null && this.data.newCurrentLo != null
-      && this.data.newCurrentLa != null && this.data.starttitle != null && this.data.endtitle != null) {
+    if (pagenum == 0 && this.data.currentLo != null && this.data.currentLa != null && this.data.newCurrentLo != null &&
+      this.data.newCurrentLa != null && this.data.starttitle != null && this.data.endtitle != null) {
       this.saveMark(this.data.currentLo, this.data.currentLa, this.data.newCurrentLo, this.data.newCurrentLa, this.data.starttitle, this.data.endtitle);
       this.saveincludeP()
-    } else if (pagenum == 1 && this.data.currentLo2 != null && this.data.currentLa2 != null && this.data.newCurrentLo2 != null
-      && this.data.newCurrentLa2 != null && this.data.starttitle2 != null && this.data.endtitle2 != null) {
+    } else if (pagenum == 1 && this.data.currentLo2 != null && this.data.currentLa2 != null && this.data.newCurrentLo2 != null &&
+      this.data.newCurrentLa2 != null && this.data.starttitle2 != null && this.data.endtitle2 != null) {
       this.saveMark(this.data.currentLo2, this.data.currentLa2, this.data.newCurrentLo2, this.data.newCurrentLa2, this.data.starttitle2, this.data.endtitle2);
       this.getPolyline();
     }
   },
   //将乘车点加入到地图点中
-  saveincludeP(){
+  saveincludeP() {
     this.data.includePoints.push({
       longitude: this.data.currentLo,
       latitude: this.data.currentLa
@@ -143,7 +152,7 @@ Page({
       width: 23,
       height: 33
     });
-    var imgurl = '../../img/mapicon_navi_e.png'//end
+    var imgurl = '../../img/mapicon_navi_e.png' //end
     this.data.markers.push({
       id: "end",
       longitude: newCurrentLo2,
@@ -178,7 +187,7 @@ Page({
             currentLa: res.latitude,
           });
         } else {
-          imgurl = '../../img/mapicon_navi_e.png'//end
+          imgurl = '../../img/mapicon_navi_e.png' //end
           _this.setData({
             polyline: [],
             endtitle: res.name,
@@ -204,7 +213,7 @@ Page({
         if (_this.data.starttitle.length > 0 && _this.data.endtitle.length > 0) {
           _this.saveincludeP()
         }
-       
+
       }
     });
   },
@@ -229,7 +238,7 @@ Page({
             currentLa2: res.latitude,
           });
         } else {
-          imgurl = '../../img/mapicon_navi_e.png'//end
+          imgurl = '../../img/mapicon_navi_e.png' //end
           _this.setData({
             polyline: [],
             endtitle2: res.name,
@@ -250,7 +259,8 @@ Page({
 
         _this.setData({
           markers: markers,
-          checkindex: 0
+          checkindex: 0,
+          checkboxlist: []
         });
         if (_this.data.starttitle2.length > 0 && _this.data.endtitle2.length > 0) {
           _this.getPolyline();
@@ -290,6 +300,7 @@ Page({
             dottedLine = true;
           }
           self.data.polyline.push({
+            name: '',
             distance: lineobj.distance,
             duration: parseInt(lineobj.duration / 60),
             points: points,
@@ -301,11 +312,11 @@ Page({
         }
         if (self.data.polyline.length > 1) {
           self.setData({
-            s_height: self.data.s_height+140
+            s_height: self.data.s_height + 140
           });
         } else {
           self.setData({
-            s_height: 330//page2
+            s_height: 330 //page2
           });
         }
         for (var b = 0; b < self.data.markers.length; b++) {
@@ -315,6 +326,7 @@ Page({
           });
         }
         self.setData({
+          checkboxlist: ["0"], //默认选择线路
           includePoints: points2,
           distance: self.data.polyline[0].distance,
           duration: self.data.polyline[0].duration,
@@ -326,7 +338,7 @@ Page({
   showline(e) {
     var index = e.currentTarget.id;
     for (var i = 0; i < this.data.polyline.length; i++) {
-      if (index == i) {//选中的
+      if (index == i) { //选中的
         this.data.polyline[i].dottedLine = false;
       } else {
         this.data.polyline[i].dottedLine = true;
@@ -340,7 +352,9 @@ Page({
     });
   },
   getPolyline() {
-    var amap = new amapFile.AMapWX({ key: this.data.key });
+    var amap = new amapFile.AMapWX({
+      key: this.data.key
+    });
     var self = this;
     amap.getDrivingRoute(this.drawPolyline(this, "#0091ff"));
   },
@@ -348,13 +362,13 @@ Page({
     this.getPolyline();
   },
   //选择时间
-  bindMultiPickerChange: function (e) {
+  bindMultiPickerChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       multiIndex: e.detail.value
     })
   },
-  bindMultiPickerColumnChange: function (e) {
+  bindMultiPickerColumnChange: function(e) {
     console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
     var data = {
       multiIndex: this.data.multiIndex
@@ -363,7 +377,7 @@ Page({
     this.setData(data);
   },
   //获取当前滑块的index
-  bindchange: function (e) {
+  bindchange: function(e) {
     const that = this;
     that.w_height(e.detail.current);
     that.setData({
@@ -371,7 +385,7 @@ Page({
     })
   },
   //点击切换，滑块index赋值
-  checkCurrent: function (e) {
+  checkCurrent: function(e) {
     const that = this;
     if (that.data.currentData === e.target.dataset.current) {
       return false;
@@ -383,14 +397,15 @@ Page({
       })
     }
   },
-  bindPickerChange: function (e) {
+  bindPickerChange: function(e) {
+    console.log(e.detail.value)
     this.setData({
       pepleindex: e.detail.value
     })
   },
   w_height(current) {
     console.log(current)
-    var s_height = 330;//page2
+    var s_height = 330; //page2
     if (current == 0) {
       s_height = 260;
     }
@@ -399,43 +414,87 @@ Page({
     })
 
   },
-  checkboxChange: function(e) {
- console.log(e.detail.value)
-	 this.setData({
-      checkboxlist:  e.detail.value
+  getphone: function(e) {
+    this.setData({
+      p_phone: e.detail.value
     })
   },
-  fb:function(){
-	 var bool = app.islogin()
-     if (!bool) {
-		  wx.navigateTo({
-            url: '../login/login',
-          })
-		 return false;
-	 }
-	if(checkboxlist.length<=0){
-		return false;
-	}else if(this.data.phone.length<=0){
-		return false;
-	}
-	this.data.polyline
+  checkboxChange: function(e) {
+    this.setData({
+      checkboxlist: e.detail.value
+    })
+  },
+  dc: function() {
+    var bool = app.islogin()
+    if (!bool) {
+      wx.navigateTo({
+        url: '../login/login',
+      })
+      return false;
+    }
+    if (this.data.markers.length < 2) {
+      utils.showModal('', '请选择位置', false)
+      return false;
+    }
+    wx.navigateTo({
+        url: '../release/release?markers='+JSON.stringify(this.data.markers)+"&date="+JSON.stringify(this.data.multiIndex)
+     })
+  },
+  fb: function() {
+    var bool = app.islogin()
+    if (!bool) {
+      wx.navigateTo({
+        url: '../login/login',
+      })
+      return false;
+    }
+    if (this.data.markers.length < 2) {
+      utils.showModal('', '请选择位置', false)
+      return false;
+    }
+    if (this.data.checkboxlist.length <= 0) {
+      utils.showModal('', '请选择路线', false)
+      return false;
+    } else if (this.data.p_phone.length <= 0) {
+      utils.showModal('', '请填写手机号码，方便乘客联系', false)
+      return false;
+    }
+    var polyline_submit = [];
+    for (var i = 0; i < this.data.checkboxlist.length; i++) {
+      var checkboxnum = this.data.checkboxlist[i];
+      if (checkboxnum == 0) {
+        this.data.polyline[checkboxnum].name = "默认";
+      } else {
+        this.data.polyline[checkboxnum].name = "线路" + checkboxnum;
+      }
+      polyline_submit.push(this.data.polyline[checkboxnum])
+    }
+    if (polyline_submit.length < 1) {
+      utils.showModal('', '线路不能为空', false)
+      return false;
+    }
     wx.request({
       url: 'https://zhao/pc/car/insertCar',
       data: {
-		markers:JSON.stringify(this.data.markers),
-		polyline:,
-		peplenum:this.data.peplenum,
-		phone:this.data.phone,
-		date:JSON.stringify(this.data.multiIndex),
-		user: wx.getStorageSync("user")
+        markers: JSON.stringify(this.data.markers),
+        polyline: JSON.stringify(polyline_submit),
+        peplenum: this.data.peplenum[this.data.pepleindex],
+        phone: this.data.p_phone,
+        date: JSON.stringify(this.data.multiIndex),
+        user: JSON.stringify(wx.getStorageSync("user"))
       },
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-      success: function (res2) {
-        console.log(res2)
-        
+      success: function(res2) {
+        console.log(res2.data)
+        if (res2.data == 1) {
+
+        } else {
+
+        }
+
       }
     })
   }
