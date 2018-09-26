@@ -1,10 +1,14 @@
 {
   "pages": [
-    "page/login/login",
+    
     "page/index/index",
+    "page/login/login",
     "page/release/release",
-    "page/detail/detail"
- 
+    "page/detail/detail",
+    "page/home/home",
+    "page/home/money/money",
+    "page/home/certification/certification",
+    "page/detail/sucess/sucess"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,67 @@
+<form bindsubmit="formSubmit">
+  <view class="weui-cell">
+    <view style="width:100%;">
+      <view class="weui-uploader" style="width:100%;">
+        <view class="section">
+          <view class="section__title">姓名</view>
+          <input name="name"bindchange="ctitle" />
+        </view>
+        <view class="section">
+          <view class="section__title">身份证</view>
+          <input name="name"bindchange="ctitle" />
+        </view>
+        <view class="section">
+          <view class="section__title">手机</view>
+          <input name="name"bindchange="ctitle" />
+        </view>
+         <view class="section">
+          <view class="section__title">车牌号</view>
+          <input name="name"bindchange="ctitle" />
+        </view>
+        <view>行驶证</view>
+        <view class="weui-uploader__hd" style="width:100%;">
+          <view class="weui-uploader__title" style="width:80%">行驶证正面照片</view>
+          <view class="weui-uploader__info" style="width:20%;text-align:right;">{{pics2.length}}/1</view>
+        </view>
+        <view class="weui-uploader__bd">
+          <view class="weui-uploader__files">
+            <block wx:for="{{pics2}}" wx:for-item="image">
+              <view class="weui-uploader__file">
+                <image class="weui-uploader__img" src="{{image}}" data-src="{{image}}" bindtap="previewImage2"></image>
+              </view>
+            </block>
+          </view>
+          <view class="weui-uploader__input-box {{isShow2?'true':'hideTrue'}}">
+            <view class="weui-uploader__input" bindtap="chooseImage2"></view>
+          </view>
+        </view>
+
+
+        <view>驾驶证</view>
+        <view class="weui-uploader__hd" style="width:100%;">
+          <view class="weui-uploader__title" style="width:80%">驾驶证正面照片</view>
+          <view class="weui-uploader__info" style="width:20%;text-align:right;">{{pics.length}}/1</view>
+        </view>
+        <view class="weui-uploader__bd">
+          <view class="weui-uploader__files">
+            <block wx:for="{{pics}}" wx:for-item="image">
+              <view class="weui-uploader__file">
+                <image class="weui-uploader__img" src="{{image}}" data-src="{{image}}" bindtap="previewImage"></image>
+              </view>
+            </block>
+          </view>
+          <view class="weui-uploader__input-box {{isShow?'true':'hideTrue'}}">
+            <view class="weui-uploader__input" bindtap="chooseImage"></view>
+          </view>
+        </view>
+      </view>
+
+
+
+      <view>
+        <button type="primary" loading="{{loading}}" disabled="{{disabled}}" form-type="submit">审核</button>
+      </view>
+    </view>
+  </view>
+</form>
+

@@ -1,0 +1,61 @@
+<view class="info" style="width:100%;height: {{max_height}}px;">
+  <view style="background-color:#fff;height:70px">
+      <view style="margin-top:10px;align-items:center;display: flex;">
+        <span style="margin-left:13px;">
+          <image style="width:50px;height:50px;border-radius:50%" mode="aspectFit" src="{{userimg}}"></image>
+        </span>
+        <span style="margin-left:10px;font-weight:bold;font-size:16px;">
+          {{username}}
+        </span>
+      </view>
+  </view>
+
+
+
+
+    <view  style="background-color:#fff;margin-top:10px;">
+      <!-- <view style="font-size:16px;margin-top:10px;margin-bottom:10px;margin-left:5px;font-weight:bold">订单</view> -->
+      <view bindtap="nt" id="dd" style="background-color:#fff;height:35px;align-items:center;display: flex;">
+        <span style="margin-left:13px;width:88%">出行订单</span>
+        <span>
+          <image style="width: 15px; height:30px; " mode="aspectFit" src="../../img/select_r.png"></image>
+        </span>
+      </view>
+      <view class="line" ></view>
+       <view bindtap="nt" id="dd" style="background-color:#fff;height:35px;align-items:center;display: flex;">
+        <span style="margin-left:13px;width:88%">服务订单</span>
+        <span>
+          <image style="width: 15px; height:30px; " mode="aspectFit" src="../../img/select_r.png"></image>
+        </span>
+      </view>
+    </view>
+
+    <view style="background-color:#fff;margin-top:10px;">
+      <view bindtap="nt" id="cz" style="background-color:#fff;height:35px;align-items:center;display: flex;">
+        <span style="margin-left:13px;width:88%">车主</span>
+        <span>
+          <image style="width: 15px; height:28px; " mode="aspectFit" src="../../img/select_r.png"></image>
+        </span>
+      </view>
+    </view>
+
+
+
+<view style="background-color:#fff;margin-top:10px;">
+    <view bindtap="nt" id="ye" style="background-color:#fff;height:35px;align-items:center;display: flex;">
+      <span style="margin-left:13px;width:88%">余额</span>
+      <span>
+        <image style="width: 15px; height:28px; " mode="aspectFit" src="../../img/select_r.png"></image>
+      </span>
+    </view>
+    <view class="line" ></view>
+    <view bindtap="nt" id="kj" style="background-color:#fff;height:35px;align-items:center;display: flex;">
+      <span style="margin-left:13px;width:88%">卡卷</span>
+      <span>
+        <image style="width: 15px; height:28px; " mode="aspectFit" src="../../img/select_r.png"></image>
+      </span>
+    </view>
+</view>
+
+
+</view>

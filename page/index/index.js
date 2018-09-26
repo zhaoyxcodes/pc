@@ -424,6 +424,11 @@ Page({
       checkboxlist: e.detail.value
     })
   },
+  linkhome:function(){
+    wx.navigateTo({
+      url: '../home/home',
+    })
+  },
   dc: function() {
     var bool = app.islogin()
     if (!bool) {

@@ -84,7 +84,7 @@ justify-content: center;
   bottom: 0px;
   height: 100px;
   background: #fff;
-  padding: 0 15px;
+  padding: 0 20px;
   z-index: 100;
 }
 
@@ -111,6 +111,17 @@ justify-content: center;
   top:10px;
   right: 40rpx;
 }
+.map-2{
+  width: 160rpx;
+  height: 160rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top:10px;
+  right: 40rpx;
+}
 .map-me{
   width: 100rpx;
   height: 100rpx;
@@ -123,12 +134,7 @@ justify-content: center;
   color:#ffffff;
   font-size: 34rpx;
   position: absolute;
-  bottom:20px;
-  right: 40rpx;
-}
-.map-me cover-image{
-  width: 60rpx;
-  height: 80rpx;
+  bottom:130px;
 }
 .map-1 image{
   width: 60rpx;

@@ -109,8 +109,12 @@ Page({
       },
       success: function (res2) {
         if(res2.data==1){
+          wx.navigateTo({
+            url: 'sucess/sucess' 
+          })
         }else{
-
+          utils.showModal('', '预定失败', false)
+          return false;
         }
       }
     })

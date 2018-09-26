@@ -1,0 +1,24 @@
+<view style="width:100%;height: {{max_height}}px;" class="page">
+  <view style="width:100%;height: {{max_height/2-100}}px; background-color:#4D8AD7;color:#fff">
+    <view style="margin-left:10px;top:50px;position: absolute;font-size:12px;">余额账户（元）</view>
+    <view style="margin-left:10px;top:70px;font-size:50px;position: absolute;">5.19</view>
+  </view>
+
+
+<view bindtap="nt" id="zh" style="background-color:#fff;height:35px;align-items:center;display: flex;">
+      <span style="margin-left:13px;width:88%;font-size:15px">提现</span>
+      <span>
+        <image style="width: 15px; height:28px; " mode="aspectFit" src="../../../img/select_r.png"></image>
+      </span>
+ </view>
+
+ <view class="line" ></view>
+<view bindtap="nt" id="zh" style="background-color:#fff;height:35px;align-items:center;display: flex;">
+      <span style="margin-left:13px;width:88%;font-size:15px">明细</span>
+      <span>
+        <image style="width: 15px; height:28px; " mode="aspectFit" src="../../../img/select_r.png"></image>
+      </span>
+ </view>
+
+
+ </view>
