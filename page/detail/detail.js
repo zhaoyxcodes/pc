@@ -80,7 +80,7 @@ Page({
       date: JSON.stringify(this.data.date),
       user: JSON.stringify(wx.getStorageSync("user")),
       dataval: JSON.stringify({
-        line_id: this.data.lineid, start: 'POINT(' + this.data.dqmarkers[0].longitude + ' ' + this.data.dqmarkers[0].latitude+')' ,
+        line_id: this.data.lineid,starttitle:this.data.dqmarkers[0].title,endtitle:this.data.dqmarkers[1].title,start: 'POINT(' + this.data.dqmarkers[0].longitude + ' ' + this.data.dqmarkers[0].latitude+')' ,
         end: 'POINT(' + this.data.dqmarkers[1].longitude + ' ' + this.data.dqmarkers[1].latitude + ')' ,
         gatherstart: this.data.detailjson.start_geom, downend: this.data.detailjson.endgeom,
         offer: this.data.offer, phone: this.data.phone, remark: this.data.remark}),
