@@ -13,49 +13,59 @@
 
 
 
-    <view  style="background-color:#fff;margin-top:10px;">
-      <!-- <view style="font-size:16px;margin-top:10px;margin-bottom:10px;margin-left:5px;font-weight:bold">订单</view> -->
-      <view bindtap="nt" id="dd" style="background-color:#fff;height:35px;align-items:center;display: flex;">
-        <span style="margin-left:13px;width:88%">出行订单</span>
-        <span>
-          <image style="width: 15px; height:30px; " mode="aspectFit" src="../../img/select_r.png"></image>
-        </span>
-      </view>
-      <view class="line" ></view>
-       <view bindtap="nt" id="dd" style="background-color:#fff;height:35px;align-items:center;display: flex;">
-        <span style="margin-left:13px;width:88%">服务订单</span>
-        <span>
-          <image style="width: 15px; height:30px; " mode="aspectFit" src="../../img/select_r.png"></image>
-        </span>
-      </view>
-    </view>
 
-    <view style="background-color:#fff;margin-top:10px;">
-      <view bindtap="nt" id="cz" style="background-color:#fff;height:35px;align-items:center;display: flex;">
-        <span style="margin-left:13px;width:88%">车主</span>
-        <span>
-          <image style="width: 15px; height:28px; " mode="aspectFit" src="../../img/select_r.png"></image>
-        </span>
-      </view>
-    </view>
+
+  <view class="weui-cells weui-cells_after-title" style="margin-top:10px;">
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view class="weui-cell__bd">出行订单</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view class="weui-cell__bd">服务订单</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+        </view>
 
 
 
-<view style="background-color:#fff;margin-top:10px;">
-    <view bindtap="nt" id="ye" style="background-color:#fff;height:35px;align-items:center;display: flex;">
-      <span style="margin-left:13px;width:88%">余额</span>
-      <span>
-        <image style="width: 15px; height:28px; " mode="aspectFit" src="../../img/select_r.png"></image>
-      </span>
-    </view>
-    <view class="line" ></view>
-    <view bindtap="nt" id="kj" style="background-color:#fff;height:35px;align-items:center;display: flex;">
-      <span style="margin-left:13px;width:88%">卡卷</span>
-      <span>
-        <image style="width: 15px; height:28px; " mode="aspectFit" src="../../img/select_r.png"></image>
-      </span>
-    </view>
-</view>
+
+
+  <view class="weui-cells weui-cells_after-title" style="margin-top:10px;">
+            <navigator url="certification/certification" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view class="weui-cell__bd">车主</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+       </view>
+
+
+
+
+
+  <view class="weui-cells weui-cells_after-title" style="margin-top:10px;">
+            <navigator url="money/money" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view class="weui-cell__bd">余额</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view class="weui-cell__bd">卡卷</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+        </view>
 
 
 </view>

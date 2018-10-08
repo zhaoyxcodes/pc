@@ -1,13 +1,16 @@
 {
   "pages": [
-    
-    "page/index/index",
+          "page/index/index",
+    "page/home/home",
+      "page/home/certification/certification",
+
+
     "page/login/login",
     "page/release/release",
     "page/detail/detail",
-    "page/home/home",
+   
     "page/home/money/money",
-    "page/home/certification/certification",
+  
     "page/detail/sucess/sucess"
   ],
   "window": {

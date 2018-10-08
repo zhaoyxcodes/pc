@@ -1,4 +1,5 @@
 // page/home/certification/certification.js
+const app = getApp()
 Page({
 
   /**
@@ -9,6 +10,8 @@ Page({
     isShow: true,
     pics2: [],
     isShow2: true,
+    max_height: app.globalData.w_height,
+    max_width: app.globalData.w_width
   },
 
   /**
