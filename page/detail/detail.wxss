@@ -1,13 +1,12 @@
 /*横向布局  */
 .layout_horizontal{
-  font-size:12px;
   display: flex;
   /*row 横向  column 列表  */
   flex-direction: row;
 }
 .detail{
-  margin-left: 20rpx;margin-right: 20rpx;
-  font-size:12px;
+  /* margin-left: 20rpx;margin-right: 20rpx; */
+  /* font-size:12px; */
 }
 .order-class{
   background-color:#fff;

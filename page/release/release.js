@@ -19,6 +19,8 @@ Page({
     key: '6f2ae22158f09ae7777a720c072deeb8'
   },
   onLoad: function(options) {
+    // options.markers ='[{"id":"start","longitude":108.895903,"latitude":34.170034,"title":"曹家堡公租房小区","iconPath":"../../img/mapicon_navi_s.png","width":23,"height":33},{"id":"end","longitude":108.86743,"latitude":34.18056,"title":"付村花园东区","iconPath":"../../img/mapicon_navi_e.png","width":23,"height":33}]'
+    // options.date ='[0,11,1]'
     if (typeof(options.markers) != 'undefined' && typeof(options.date) != 'undefined'){
       this.setData({
         markers: JSON.parse(options.markers),
@@ -80,7 +82,7 @@ Page({
     
     var that = this;
     wx.request({
-      url: 'https://zhao/pc/car/seachCar',
+      url: app.data.aurl +'/car/seachCar',
       data: dataval,
       method: 'POST',
       header: {
@@ -133,9 +135,10 @@ Page({
   },
   linkDetail:function(e){
     var lineid=e.currentTarget.id;
-    var detailjson=null;
+    var detailjson=null;var ljdtitle="";
     for (var i = 0; i < this.data.list.length;i++){
       if(this.data.list[i].lineid==lineid){
+        ljdtitle=this.data.endjltitle[i];
         detailjson = this.data.list[i]
       }
     }
@@ -143,7 +146,7 @@ Page({
       return false;
     }
     wx.navigateTo({
-      url: '../detail/detail?date=' + JSON.stringify(this.data.date) +'&markers=' + JSON.stringify(this.data.markers)+'&detailjson=' + JSON.stringify(detailjson)+'&lineid=' + lineid
+      url: '../detail/detail?date=' + JSON.stringify(this.data.date) + '&markers=' + JSON.stringify(this.data.markers) + '&detailjson=' + JSON.stringify(detailjson) + '&ljdtitle=' + ljdtitle+'&lineid=' + lineid
     })
   }
 })

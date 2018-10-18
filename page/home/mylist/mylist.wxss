@@ -1,0 +1,35 @@
+
+.text_box{
+   position: absolute;
+  left: 5px;
+  right: 5px;
+  bottom: 0px;
+  height: 210px;
+  background: #fff;
+  padding: 0 10px;
+  z-index: 100;
+}
+.layout_horizontal{
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: row;
+}
+/*纵向布局  */
+.layout_vertical{
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: column;
+}
+.time {
+  background-position-x: 480px ;
+background-position-y: 400px ;
+
+width: 18px;
+	display:block;
+	border-radius:50%;
+	/* width:6px; */
+	height:16px;
+  top:2px;
+	left:-5px;
+	position:absolute;
+}

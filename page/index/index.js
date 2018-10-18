@@ -31,16 +31,25 @@ Page({
     markers: [],
     polyline: [],
     includePoints: [],
-    scale: 16,
+    scale: 14,
     checkindex: 0,
 
-    p_phone: '18717370370',
+    p_phone: '',
     checkboxlist: [],
     peplenum: [1, 2, 3, 4, 5, 6], //乘坐人数
     pepleindex: 0,
     multiArray: [],
     multiIndex: [0, 0, 0],
     currentData: 0,
+
+    carauth:0,//车主认证1
+    ismsg:0,//是否有提醒
+    dnone:'none'
+  },
+  linkrz(){
+    wx.navigateTo({
+      url: '../home/certification/certification'
+    })
   },
   onLoad() {
     var _this = this;
@@ -69,6 +78,25 @@ Page({
     this.setData({
       multiArray: this.data.multiArray,
       multiIndex: [0, new Date().getHours(), 0]
+    })
+  },
+  onShow(){
+    // app.getuser(function(e){
+    // })
+    var _this = this;
+    wx.request({
+      url: app.data.aurl + '/home/querycertificationByUser',
+      data: { userid: app.globalData.userInfo.id },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res2) {
+        _this.setData({
+          carauth: res2.data.status,
+          p_phone: res2.data.phone
+        })
+      }
     })
   },
   handletouchtart(e) {
@@ -152,6 +180,10 @@ Page({
       width: 23,
       height: 33
     });
+    this.data.includePoints.push({
+      longitude: (parseFloat(currentLo2) - app.data.bj),
+      latitude: (parseFloat(currentLa2) + app.data.bj2)
+    })
     var imgurl = '../../img/mapicon_navi_e.png' //end
     this.data.markers.push({
       id: "end",
@@ -162,7 +194,12 @@ Page({
       width: 23,
       height: 33
     });
+    this.data.includePoints.push({
+      longitude: (parseFloat(newCurrentLo2) - app.data.bj),
+      latitude: (parseFloat(newCurrentLa2) + app.data.bj2)
+    })
     this.setData({
+      includePoints: this.data.includePoints,
       markers: this.data.markers
     });
   },
@@ -194,7 +231,12 @@ Page({
             newCurrentLo: res.longitude,
             newCurrentLa: res.latitude,
           });
+         
         }
+        _this.data.includePoints.push({
+          longitude: (parseFloat(res.longitude) - app.data.bj),
+          latitude: (parseFloat(res.latitude) + app.data.bj2)
+        })
         markers.push({
           id: e.currentTarget.id,
           longitude: res.longitude,
@@ -208,6 +250,7 @@ Page({
 
         _this.setData({
           markers: markers,
+          includePoints: _this.data.includePoints,
           checkindex: 0
         });
         if (_this.data.starttitle.length > 0 && _this.data.endtitle.length > 0) {
@@ -256,9 +299,13 @@ Page({
           height: 33
         });
 
-
+        _this.data.includePoints.push({
+          longitude: (parseFloat(res.longitude) - app.data.bj),
+          latitude: (parseFloat(res.latitude) + app.data.bj2)
+        })
         _this.setData({
           markers: markers,
+          includePoints: _this.data.includePoints,
           checkindex: 0,
           checkboxlist: []
         });
@@ -292,6 +339,10 @@ Page({
                   longitude: parseFloat(poLen[j].split(',')[0]),
                   latitude: parseFloat(poLen[j].split(',')[1])
                 })
+                self.data.includePoints.push({
+                  longitude: parseFloat(poLen[j].split(',')[0]),
+                  latitude: parseFloat(poLen[j].split(',')[1])
+                })
               }
             }
           }
@@ -299,12 +350,16 @@ Page({
           if (self.data.polyline.length > 0) {
             dottedLine = true;
           }
+          var c_color=color;
+          if (self.data.polyline.length==0){
+            c_color="#1aad16"
+          }
           self.data.polyline.push({
             name: '',
             distance: lineobj.distance,
             duration: parseInt(lineobj.duration / 60),
             points: points,
-            color: color,
+            color: c_color,
             width: 6,
             borderWidth: 1,
             dottedLine: dottedLine
@@ -327,7 +382,7 @@ Page({
         }
         self.setData({
           checkboxlist: ["0"], //默认选择线路
-          includePoints: points2,
+          includePoints: self.data.includePoints,
           distance: self.data.polyline[0].distance,
           duration: self.data.polyline[0].duration,
           polyline: self.data.polyline
@@ -340,10 +395,13 @@ Page({
     for (var i = 0; i < this.data.polyline.length; i++) {
       if (index == i) { //选中的
         this.data.polyline[i].dottedLine = false;
+        this.data.polyline[i].color = "#1aad16"
       } else {
         this.data.polyline[i].dottedLine = true;
+        this.data.polyline[i].color = "#0091ff"
       }
     }
+    
     this.setData({
       distance: this.data.polyline[index].distance,
       duration: this.data.polyline[index].duration,
@@ -479,7 +537,7 @@ Page({
       return false;
     }
     wx.request({
-      url: 'https://zhao/pc/car/insertCar',
+      url: app.data.aurl +'/car/insertCar',
       data: {
         markers: JSON.stringify(this.data.markers),
         polyline: JSON.stringify(polyline_submit),

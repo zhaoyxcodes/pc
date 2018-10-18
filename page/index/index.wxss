@@ -10,7 +10,8 @@
   width: 100%;
 }
 .ul .active{ 
-background: rgb(240, 235, 235);
+  background-color:#f0c14b; 
+  border-color:#a88734 #9c7e31 #846a29;
 }
 .ul {
  width:30%;
@@ -123,8 +124,9 @@ justify-content: center;
   right: 40rpx;
 }
 .map-me{
-  width: 100rpx;
-  height: 100rpx;
+ 
+width: 35px;
+height:35px;
   border-radius: 120rpx;
   background-color:#fff;
   display: flex;
@@ -134,7 +136,7 @@ justify-content: center;
   color:#ffffff;
   font-size: 34rpx;
   position: absolute;
-  bottom:130px;
+  
 }
 .map-1 image{
   width: 60rpx;

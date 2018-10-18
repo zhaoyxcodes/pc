@@ -1,0 +1,9 @@
+<view class="page">
+    <view class="page__hd" style="background-color:#fff;">
+        <view class="page__title">卡卷</view>
+        <view class="page__desc">优惠折扣</view>
+    </view>
+     <view class="page__bd" style="font-size:13px;justify-content: center;align-items: center;display: flex;">
+     <view style="margin-top:50px">暂无优惠卷</view>
+     </view>
+</view>

@@ -1,0 +1,49 @@
+<view class="page">
+   
+  <view style="height: 75rpx;background-color:#fff">
+    <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>审核中</view>
+    <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>已完成</view>
+
+  </view>
+   <view wx:if="{{currentData == 0}}">
+     <view class="page__bd" style="font-size:13px;justify-content: center;align-items: center;display: flex;"  wx:if="{{issh}}">
+    <view class="weui-panel" style="width:100%">
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_text" wx:for="{{datalist}}" wx:item="item" wx:if="{{item.status==0}}" data-optype="{{item.status}}" id="{{item.id}}" bindtap='link_p'>
+          <view class="layout_horizontal">
+            <view style="width:60%;">
+              {{item.name}}
+            </view>
+            <view >{{item.sdate}} </view>
+            <view class="weui-cell__ft weui-cell__ft_in-access" style="width:50px;height:18px;font-size:12px;text-align:left;vertical-align: text-top;"></view>
+          </view>
+        </view>
+
+      </view>
+    </view>
+  </view>
+    <view wx:if="{{issh==false}}"  class="nolist">暂没有审核信息</view>
+  </view>
+
+<view wx:if="{{currentData == 1}}">
+   <view class="page__bd" style="font-size:13px;justify-content: center;align-items: center;display: flex;"  wx:if="{{iswc}}">
+    <view class="weui-panel" style="width:100%">
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_text" wx:for="{{datalist}}" wx:item="item" wx:if="{{item.status!=0}}"  id="{{item.id}}" bindtap='link_p'>
+          <view class="layout_horizontal">
+            <view style="width:60%;">
+              {{item.name}}
+            </view>
+            <view >{{item.sdate}} </view>
+            <view class="weui-cell__ft weui-cell__ft_in-access" style="width:50px;height:18px;font-size:12px;text-align:left;vertical-align: text-top;"></view>
+          </view>
+        </view>
+
+      </view>
+    </view>
+  </view>
+ <view wx:if="{{iswc==false}}"  class="nolist">暂没有数据信息</view>
+  </view>
+
+
+</view>

@@ -7,9 +7,23 @@ module.exports = {
   GL_DIS: GL_DIS,
   timeStamp:timeStamp,
   geompoint: geompoint,
-  getDQSJ: getDQSJ
+  getDQSJ: getDQSJ,
+  uploadfile: uploadfile
 }
-
+function uploadfile(srcfile,_success) {
+  wx.uploadFile({
+    url: app.data.aurl + '/home/carvimg', //仅为示例，非真实的接口地址
+    filePath: srcfile,
+    name: 'file',
+    formData: { userid: app.globalData.userInfo.id, "user": JSON.stringify(wx.getStorageSync("user"))},
+    fail: function (res) { console.log(res) },
+    success: function (res) {
+      console.log(res)
+      var data = res.data
+      _success(data);
+    }
+  })
+}
 function getDQSJ() {
   var time = new Date();   
   var m = time.getMonth() + 1;

@@ -1,7 +1,7 @@
 <view style="height: 30rpx;">
   <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>乘客</view>
   <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>车主</view>
-  <view style="float: right;text-align: right;padding-right: 20rpx; width:120px;" wx:if="{{currentData==1}}"> <view  style="margin-right:10px; font-size: 32rpx;" bindtap='fb'>发布</view></view>
+  <view style="float: right;text-align: right;padding-right: 20rpx; width:120px;" wx:if="{{currentData==1&&carauth==1}}"> <view  style="margin-right:10px; font-size: 32rpx;" bindtap='fb'>发布</view></view>
 </view>
 <swiper current="{{currentData}}" class='swiper' style="height:{{s_height}}rpx;" duration="300" bindchange="bindchange">
   <swiper-item>
@@ -25,7 +25,7 @@
     </view>
   </swiper-item>
   <swiper-item>
-    <view class="tui-map-search" style="height: 100%;width: 100%;">
+    <view class="tui-map-search" style="height: 100%;width: 100%;" wx:if="{{carauth==1}}">
       <!-- <icon size='20' type='search' class='tui-map-search-icon'></icon>  -->
 
       <input class="tui-map-input" placeholder="起点" bindtap="getAddress2" disabled="true" value="{{starttitle2}}" id="start"></input>
@@ -66,14 +66,25 @@
        <view  wx:if="{{polyline.length>1}}" class="tui-map-input" style="color:#ccc">线路{{distance}}米大概需求{{duration}}分钟,选择多条线路会提升上座率。</view>
    
     </view>
+
+
+     <view class="tui-map-search" style="height: 100%;width: 100%;" wx:if="{{carauth!=1}}">
+      <image style="width: 100%; height: 100px;background-color:#ccc; "  mode="aspectFill" src="../../img/chezhuindex.jpg"></image>
+      <view style="width:50%;height:25px;margin:auto auto;background-color:#f0c14b; border-radius: 10rpx;border:1px solid #a88734;font-size:13px;border-radius: 10rpx;justify-content: center;align-items: center;display: flex;" bindtap='linkrz'>
+        上传车辆信息 进行车主认证
+      </view>
+     </view>
   </swiper-item>
 </swiper>
 
 
 <view class="tui-map" style="top:{{s_height+30}}rpx;">
   <map id="map" longitude="{{cuLo}}" latitude="{{cuLa}}" scale="{{scale}}" markers="{{markers}}" polyline="{{polyline}}" include-points="{{includePoints}}"  style="width:  100%; height: 100%;" show-location> <!--bindregionchange="controltap"-->
-      <cover-view class="map-me" style="left: 45rpx;" bindtap='linkhome'>
-        <cover-image src="../../img/me.png" style="width:50px;height:50px"></cover-image>
+      <cover-view class="map-me" style="left: 45rpx;bottom:130px;" bindtap='linkhome' wx:if="{{ismsg==1}}">
+        <cover-image src="../../img/me.png" style="width:35px;height:35px"></cover-image>
+      </cover-view>
+      <cover-view class="map-me" style="left: 45rpx;bottom:40px;" bindtap='linkhome' wx:if="{{ismsg!=1}}">
+        <cover-image src="../../img/me.png" style="width:35px;height:35px"></cover-image>
       </cover-view>
   
     <cover-view class="text_box" bindtouchstart="handletouchtart" bindtouchmove="handletouchmove" style="display:{{dnone}};height: {{btn_height}}px;">

@@ -1,2 +1,25 @@
-<!--page/detail/sucess/sucess.wxml-->
-预定成功
+<view class="page">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="success" size="93"></icon>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">操作成功</view>
+            <view class="weui-msg__desc">车主正在确定中，确定后会收到通知信息，请耐心等待，如果需要撤销可在<view class="weui-msg__link" bindtap='linklift'>我的出行</view>中操作</view>
+        </view>
+        <view class="weui-msg__opr-area">
+            <view class="weui-btn-area">
+                <button class="weui-btn" type="primary" bindtap='fh'>返回</button>
+                <button class="weui-btn" type="default" open-type='share' >分享这条线路给朋友</button>
+            </view>
+        </view>
+        <view class="weui-msg__extra-area">
+            <view class="weui-footer">
+                <view class="weui-footer__links">
+                    <navigator url="" class="weui-footer__link">小区拼车</navigator>
+                </view>
+                <view class="weui-footer__text">Copyright © 2018-2020 </view>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,94 @@
+<view style="margin:auto auto;width:100%;height:{{max_height}}px;">
+  <map id="map" longitude="{{cuLo}}" latitude="{{cuLa}}" scale="{{scale}}" markers="{{markers}}" polyline="{{polyline}}" include-points="{{includePoints}}" style="width:  100%; height: {{max_height-310}}px;">
+  </map>
+  <view class="text_box">
+    <view style="width:100%;height:60px;" class='layout_horizontal'>
+      <view style="width:35%;margin-left:0px;align-items:center; justify-content: center;display:flex;">
+        <image src="{{data.img}}" style="width:34px;height:34px;border-radius:50%" />
+        <text space="nbsp">  {{data.username}}   </text>
+      </view>
+      <view style="width:40%;font-size:13px;align-items:left; justify-content: center;display:flex;" class='layout_vertical'>
+        <view>陕AH19Z9</view>
+        <view class='layout_horizontal' style="align-items:center; justify-content: row;display:flex;">
+          <text decode="emsp">白色&nbsp;</text>
+          <i style="background:#ccc;border-radius:50%;width:3px;display:block;height:3px;"></i>
+          <text decode="nbsp">&nbsp;大众巴萨特</text>
+        </view>
+      </view>
+      <view style="width:20%;font-size:16px;align-items:center; justify-content: center;display:flex;right: 0px;">
+        打电话
+      </view>
+    </view>
+    <view style="width:100%;height:180px;margin-left:10px;" class="layout_vertical list">
+      <view>
+        <i class="time img"></i>
+        <view>{{data.sdate}}</view>
+      </view>
+      <view>
+        <i class="tip" style="background:aquamarine;"></i>
+        <view>{{data.starttitle}}</view>
+      </view>
+      <view>
+        <i class="tip" style="background:#ccc;"></i>
+        <view>步行{{data.startmi}}</view>
+      </view>
+      <view>
+        <i class="tip" style="background:#ccc;"></i>
+        <view>{{data.start_title}}上车</view>
+      </view>
+      <view>
+        <i class="tip" style="background:#ccc;"></i>
+        <view>{{data.downaddress}}下车</view>
+      </view>
+      <view>
+        <i class="tip" style="background:#ccc;"></i>
+        <view>步行{{data.downmi}}</view>
+      </view>
+      <view>
+        <i class="tip" style="background:#f00;"></i>
+        <view>{{data.endtitle}}</view>
+      </view>
+    </view>
+    <view style="width:100%;height:30px;" class="layout_horizontal">费用：
+      <view><text>{{data.offer}}</text>元</view>
+      </view>
+    <view style="width:100%;height:40px;" class="layout_horizontal">
+    <form bindsubmit="ustatus" report-submit='true'>
+      <!-- 车主预约中 -->
+      <view class="layout_horizontal alink" wx:if="{{type==1&&optype==0}}">
+      
+        <view class="btnview" style="right: 213px;">
+          <button size='mini' id="1" form-type="submit" style="background-color:#f0c14b; border-color:#a88734 #9c7e31 #846a29">确定预定</button>
+        </view>
+        <view class="btnview" style="right: 113px;">
+          <button size='mini' id="2" form-type="submit" style="background-color:#f0c14b; border-color:#a88734 #9c7e31 #846a29">取消预约</button>
+        </view>
+         <view class="btnview" style=" width:110px;">
+          <button size='mini' id="jg_cz" form-type="submit" style="background-color:#f0c14b; border-color:#a88734 #9c7e31 #846a29">价格不合适</button>
+        </view>
+      </view>
+      <view class="layout_horizontal alink" wx:if="{{type==1&&optype==1}}">
+        <view class="btnview">
+          <button size='mini' id="3" form-type="submit" style="background-color:#f0c14b; border-color:#a88734 #9c7e31 #846a29">取消预约</button>
+        </view>
+      </view>
+
+      <!-- 乘客预约中 -->
+      <view class="layout_horizontal alink" wx:if="{{type==0&&optype==0}}">
+        <view class="btnview" style="right: 103px;">
+          <button size='mini' id="4"  form-type="submit" style="background-color:#f0c14b; border-color:#a88734 #9c7e31 #846a29">取消预约</button>
+        </view>
+        <view class="btnview">
+        <button size='mini' id="jg_cg" style="width:50px" form-type="submit" style="background-color:#f0c14b; border-color:#a88734 #9c7e31 #846a29">修改价格</button>
+        </view>
+      </view>
+      <view class="layout_horizontal alink" wx:if="{{type==0&&(optype==1)}}">
+        <view class="btnview">
+          <button size='mini' id="5" form-type="submit" style="background-color:#f0c14b; border-color:#a88734 #9c7e31 #846a29">撤销</button>
+        </view>
+      </view>
+    </form>
+    </view>
+
+    </view>
+  </view>

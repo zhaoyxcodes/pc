@@ -16,18 +16,18 @@
 
 
   <view class="weui-cells weui-cells_after-title" style="margin-top:10px;">
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <navigator url="lift/lift" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__hd">
                     <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
                 </view>
-                <view class="weui-cell__bd">出行订单</view>
+                <view class="weui-cell__bd">出行</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access"></view>
             </navigator>
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <navigator url="service/service" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__hd">
                     <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
                 </view>
-                <view class="weui-cell__bd">服务订单</view>
+                <view class="weui-cell__bd">服务</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access"></view>
             </navigator>
         </view>
@@ -58,13 +58,24 @@
                 <view class="weui-cell__bd">余额</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access"></view>
             </navigator>
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <navigator url="card/card" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__hd">
                     <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
                 </view>
                 <view class="weui-cell__bd">卡卷</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access"></view>
             </navigator>
+        </view>
+
+        <view class="weui-cells weui-cells_after-title" style="margin-top:10px;" wx:if="{{isadm==1}}">
+            <navigator url="audit/audit" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view class="weui-cell__bd">车主审核</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            
         </view>
 
 

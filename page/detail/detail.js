@@ -15,6 +15,7 @@ Page({
     scale: 16,
     dqmarkers:[],//当前
     markers: [],//详情
+    ljdtitle:'',//下车点
     polyline: [],
     includePoints: [],
 
@@ -25,9 +26,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (typeof (options.lineid) != 'undefined' && typeof (options.detailjson) != 'undefined' 
+    if (typeof (options.ljdtitle) != 'undefined' &&typeof (options.lineid) != 'undefined' && typeof (options.detailjson) != 'undefined' 
       && typeof (options.markers) != 'undefined' && typeof (options.date) != 'undefined') {
       this.setData({
+        ljdtitle: options.ljdtitle,
         date: JSON.parse(options.date),
         dqmarkers: JSON.parse(options.markers),
         lineid: options.lineid,
@@ -76,45 +78,51 @@ Page({
       this.data.dqmarkers.length < 2 || this.data.detailjson==null ){
         return false;
       }
+    console.log(this.data.date)
     var data = {
       date: JSON.stringify(this.data.date),
       user: JSON.stringify(wx.getStorageSync("user")),
       dataval: JSON.stringify({
+        downaddress: this.data.ljdtitle, downmi: this.data.detailjson.GL_minend, startmi: this.data.detailjson.GL_minstart,
         line_id: this.data.lineid,starttitle:this.data.dqmarkers[0].title,endtitle:this.data.dqmarkers[1].title,start: 'POINT(' + this.data.dqmarkers[0].longitude + ' ' + this.data.dqmarkers[0].latitude+')' ,
         end: 'POINT(' + this.data.dqmarkers[1].longitude + ' ' + this.data.dqmarkers[1].latitude + ')' ,
         gatherstart: this.data.detailjson.start_geom, downend: this.data.detailjson.endgeom,
-        offer: this.data.offer, phone: this.data.phone, remark: this.data.remark}),
+        offer: this.data.offer, phone: this.data.phone, remark: this.data.remark, carid: this.data.detailjson.carid}),
       formid:'123' ,
       modeldata: JSON.stringify({
             touser: 'ovtTW5UfIDsfxg-bkLJ60_8AYPC8',
               template_id: 'YStdKnI25OuQwJiYXzHfJ4on2wuksynlhLMiXf_Zqic',
               form_id: e.detail.formId,
-                  page: "pages/index/index",
+        page: "page/home/orderpreview/orderpreview?type=1&optype=0&rid=",
                     data: {
               "keyword1": { "value": "起点：" + that.data.dqmarkers[0].title + " 终点：" + that.data.dqmarkers[1].title, "color": "#173177" },
               "keyword2": { "value": app.globalData.userInfo.name, "color": "#173177" },
               "keyword3": { "value": that.data.phone, "color": "#173177" },
-              "keyword4": { "value": '2018-12-16', "color": "#173177" },
+                      "keyword4": { "value": that.data.detailjson.startdate, "color": "#173177" },
               "keyword5": { "value": utils.getDQSJ(), "color": "#173177" },
             }
           })
       }
     
     wx.request({
-      url: 'https://zhao/pc/car/reservation',
+      url: app.data.aurl +'/car/reservation',
       data: data,
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function (res2) {
-        if(res2.data==1){
-          wx.navigateTo({
-            url: 'sucess/sucess' 
-          })
-        }else{
+        if (res2.data == 1 || res2.data == '1') {
+          utils.showModal('', '预定失败，您已预定了此时间段(' + that.data.detailjson.startdate+'前后区间1小时)的订单，你重新选择时间段预定！', false)
+          return false;
+        }else if(res2.data==0){
           utils.showModal('', '预定失败', false)
           return false;
+        }else{
+          wx.redirectTo({
+            url: 'sucess/sucess?rid=' + res2.data
+          })
+          
         }
       }
     })
@@ -122,7 +130,7 @@ Page({
   detail(){
     var self=this
     wx.request({
-      url: 'https://zhao/pc/car/getPoint',
+      url: app.data.aurl +'/car/getPoint',
       data: { lineid: this.data.lineid},
       method: 'POST',
       header: {

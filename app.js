@@ -1,6 +1,9 @@
 App({
   data:{
-   
+    bj: 0.002,//向左
+    bj2: 0.002,//向上
+    secret:"6a40c709e9eb56f2881db739ef98ff7a",
+    aurl: 'https://bronnyjames.cn/pc'// bronnyjames.cn
   },
   globalData: {
     access_token:null,
@@ -19,7 +22,22 @@ App({
       }
     })
   }
-  ,
+  ,getuser:function(_success){
+    var that = this;
+    wx.request({
+      url: that.data.aurl + '/login/queryuser',
+      data: {
+        userid: that.globalData.userInfo.id
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res2) {
+        _success(res2.data)
+      }
+    })
+  },
   getLogin: function (success1) {
     var that = this;
     wx.login({
@@ -28,13 +46,15 @@ App({
           wx.getUserInfo({
             success: function (res1) {
               var userInfo = res1.userInfo;
-              console.log(1)
+              console.log(res.code)
+              console.log(userInfo)
               wx.request({
-                url: 'https://zhao/pc/login/get3drSessionKey',
+                url: that.data.aurl+'/login/get3drSessionKey',
                 data: {
                   code: res.code,
                   img: userInfo.avatarUrl,
-                  name: userInfo.nickName
+                  name: userInfo.nickName,
+                  secret: that.data.secret
                 },
                 method: 'POST',
                 header: {

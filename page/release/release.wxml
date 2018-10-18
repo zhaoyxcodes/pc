@@ -13,6 +13,10 @@
   <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad" bindscroll="scroll">
     <view class="item" wx:for="{{list}}" wx:key="item" >
       <!-- <image class="img" src="{{item.pic_url}}"></image> -->
+
+  
+
+
       <view bindtap='linkDetail' id="{{item.lineid}}">
         <view class="layout_horizontal">
           <text class="title"  decode="emsp"style="margin-left:0px;background-color:rgb(232, 208, 236);">&emsp;{{item.start_title}}&emsp;</text>
@@ -25,9 +29,10 @@
         <view wx:if="{{item.everyday==0}}">{{item.startdate}}</view>出发
         <view >剩余{{item.peplenum}}个空位</view>
         </view>
-        <view class="layout_horizontal"  style=" font-size: 28rpx;">
-          <text  style="margin-left:0px">沿途在（{{endjltitle[index]}}）下车后步行{{item.GL_minend}}到达终点</text>
-        </view>
+            <view class="weui-media-box__info" style="margin-top:10px;font-size:12px;" >
+                        <view class="weui-media-box__info__meta">沿途在（{{endjltitle[index]}}）下车后步行{{item.GL_minend}}到达终点</view>
+                  <!-- <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">其它信息</view> -->
+             </view>
       </view>
         <view class="line" style="margin-top:10px"></view>
     </view>

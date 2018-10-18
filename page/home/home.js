@@ -7,14 +7,17 @@ Page({
   data: {
     userimg:'../../img/user/imguser.jpg',
     username:"未登录",
-    max_height: app.globalData.w_height
+    max_height: app.globalData.w_height,
+    isadm:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(app.userInfo)
+    this.setData({
+      isadm:app.globalData.userInfo.isadm
+    })
     wx.setNavigationBarTitle({
       title: "我"
     })

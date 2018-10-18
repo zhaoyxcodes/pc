@@ -1,73 +1,115 @@
 <view class="info" style="width:100%;height: {{max_height}}px;">
 <form bindsubmit="formSubmit">
-  <view class="weui-cell">
-    <view style="width:100%;">
-      <view class="weui-uploader" style="width:100%;">
-        <view class="section1 ">
-          <view class="section__title1">姓名</view>
-          <input name="name"bindchange="ctitle" placeholder="名字"  />
-        </view>
-         <view class="line line_w"  ></view>
-        <view class="section1 ">
-          <view class="section__title1">身份证</view>
-          <input name="name"bindchange="ctitle"  placeholder="身份证号码"/>
-        </view>
-         <view class="line line_w"  ></view>
-        <view class="section1 ">
-          <view class="section__title1">手机</view>
-          <input name="name"bindchange="ctitle" placeholder="11位手机号"/>
-        </view>
-         <view class="line line_w"  ></view>
-         <view class="section1 ">
-          <view class="section__title1">车牌号</view>
-          <input name="name"bindchange="ctitle" placeholder="车牌号"/>
-        </view>
-         <view class="line line_w"  ></view>
-        <view class="section1 ">行驶证</view>
-        <view class=" weui-uploader__hd" style="width:{{max_width-20}}px;">
-          <view class="weui-uploader__title" style="width:80%">行驶证正面照片</view>
-          <view class="weui-uploader__info" style="width:20%;text-align:right;">{{pics2.length}}/1</view>
-        </view>
-        <view class="weui-uploader__bd">
-          <view class="weui-uploader__files">
-            <block wx:for="{{pics2}}" wx:for-item="image">
-              <view class="weui-uploader__file">
-                <image class="weui-uploader__img" src="{{image}}" data-src="{{image}}" bindtap="previewImage2"></image>
-              </view>
-            </block>
-          </view>
-          <view class="weui-uploader__input-box {{isShow2?'true':'hideTrue'}}">
-            <view class="weui-uploader__input" bindtap="chooseImage2"></view>
-          </view>
-        </view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">姓名</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{ishidden==0}}">
+                    <input class="weui-input" name="name"bindchange="bindname" value="{{name}}" placeholder="名字" />
+                </view>
+                <view class="weui-cell__bd weui-input" wx:if="{{ishidden==1}}">
+                    {{name}}
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">身份证</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{ishidden==0}}">
+                    <input class="weui-input" name="peoplenum"bindchange="bindpeoplenum" value="{{peoplenum}}" placeholder="身份证号码" />
+                </view>
+                 <view class="weui-cell__bd weui-input" wx:if="{{ishidden==1}}">
+                    {{peoplenum}}
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">手机</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{ishidden==0}}">
+                    <input class="weui-input" placeholder="11位手机号" value="{{phone}}" bindchange="bindphone"/>
+                </view>
+                <view class="weui-cell__ft" wx:if="{{ishidden==0}}">
+                    <view class="weui-vcode-btn">获取验证码</view>
+                </view>
+                <view class="weui-cell__bd weui-input" wx:if="{{ishidden==1}}">
+                    {{phone}}
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">车牌号</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{ishidden==0}}">
+                    <input class="weui-input"bindchange="bindcarnum"value="{{carnum}}" placeholder="车牌号" />
+                </view>
+                <view class="weui-cell__bd weui-input" wx:if="{{ishidden==1}}">
+                    {{carnum}}
+                </view>
+            </view>
 
-        <view class="line line_w" style="margin-top:10px" ></view>
-        <view class="section1 ">驾驶证</view>
-        <view class="weui-uploader__hd" style="width:{{max_width-20}}px;">
-          <view class="weui-uploader__title" style="width:80%">驾驶证正面照片</view>
-          <view class="weui-uploader__info" style="text-align:right;">{{pics.length}}/1</view>
-        </view>
-        <view class="weui-uploader__bd" style="margin-bottom: 10px">
-          <view class="weui-uploader__files">
-            <block wx:for="{{pics}}" wx:for-item="image">
-              <view class="weui-uploader__file">
-                <image class="weui-uploader__img" src="{{image}}" data-src="{{image}}" bindtap="previewImage"></image>
-              </view>
-            </block>
-          </view>
-          <view class="weui-uploader__input-box {{isShow?'true':'hideTrue'}}">
-            <view class="weui-uploader__input" bindtap="chooseImage"></view>
-          </view>
-        </view>
+
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader">
+                        <view class="weui-uploader__hd">
+                            <view class="weui-uploader__title">行驶证</view>
+                            <view class="weui-uploader__info" wx:if="{{ishidden==0}}">{{pics.length}}/1</view>
+                        </view>
+                        <view class="weui-uploader__bd">
+                            <view class="weui-uploader__files">
+                              <block wx:for="{{pics2}}" wx:for-item="image">
+                                <view class="weui-uploader__file">
+                                  <image class="weui-uploader__img" src="{{image}}" data-src="{{image}}" bindtap="previewImage2"></image>
+                                </view>
+                              </block>
+                            </view>
+                            <view class="weui-uploader__input-box {{isShow2?'true':'hideTrue'}}">
+                              <view class="weui-uploader__input" bindtap="chooseImage2"></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-cells__tips" wx:if="{{ishidden==0}}">请上传行驶证正面照片</view>
+             <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader">
+                        <view class="weui-uploader__hd">
+                            <view class="weui-uploader__title">驾驶证</view>
+                            <view class="weui-uploader__info" wx:if="{{ishidden==0}}">{{pics.length}}/1</view>
+                        </view>
+                        <view class="weui-uploader__bd" >
+                          <view class="weui-uploader__files">
+                            <block wx:for="{{pics}}" wx:for-item="image">
+                              <view class="weui-uploader__file">
+                                <image class="weui-uploader__img" src="{{image}}" data-src="{{image}}" bindtap="previewImage"></image>
+                              </view>
+                            </block>
+                          </view>
+                          <view class="weui-uploader__input-box {{isShow?'true':'hideTrue'}}">
+                            <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                          </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+             <view class="weui-cells__tips" wx:if="{{ishidden==0}}">请上传驾驶证正面照片</view>
+
       </view>
 
 
+   <view  wx:if="{{ishidden==0}}" class=" page__bd page__bd_spacing" style="width:95%;position: relative;top:20px; margin:auto auto">
+        <button class="weui-btn" id="shenhe" type="primary" loading="{{loading}}" disabled="{{disabled}}" form-type="submit">审核</button>
+   </view> 
 
-    <view style="margin-top: 10px">
-        <button  type="primary" loading="{{loading}}" disabled="{{disabled}}" form-type="submit">审核</button>
-      </view> 
-    </view>
-  </view>
+    <view  wx:if="{{ishidden==1}}" class=" page__bd page__bd_spacing" style="width:95%;position: relative;top:20px; margin:auto auto">
+       <view class="weui-cells__tips" wx:if="{{status==0}}"  >正在审核中</view>
+       <view class="weui-cells__tips" wx:if="{{status==1}}" style="color:green">审核通过</view>
+       <view class="weui-cells__tips" wx:if="{{status==2}}" style="color:red">审核拒绝（{{remark}}）</view>
+        <button class="weui-btn" id="bianji" type="default" loading="{{loading}}" disabled="{{disabled}}" form-type="submit">编辑</button>
+   </view>     
 </form>
 
 </view>

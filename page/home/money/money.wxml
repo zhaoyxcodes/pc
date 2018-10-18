@@ -4,21 +4,23 @@
     <view style="margin-left:10px;top:70px;font-size:50px;position: absolute;">5.19</view>
   </view>
 
+  <view class="weui-cells weui-cells_after-title" style="margin-top:10px;">
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view class="weui-cell__bd">提现</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+                </view>
+                <view class="weui-cell__bd">明细</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+        </view>
 
-<view bindtap="nt" id="zh" style="background-color:#fff;height:35px;align-items:center;display: flex;">
-      <span style="margin-left:13px;width:88%;font-size:15px">提现</span>
-      <span>
-        <image style="width: 15px; height:28px; " mode="aspectFit" src="../../../img/select_r.png"></image>
-      </span>
- </view>
-
- <view class="line" ></view>
-<view bindtap="nt" id="zh" style="background-color:#fff;height:35px;align-items:center;display: flex;">
-      <span style="margin-left:13px;width:88%;font-size:15px">明细</span>
-      <span>
-        <image style="width: 15px; height:28px; " mode="aspectFit" src="../../../img/select_r.png"></image>
-      </span>
- </view>
 
 
  </view>

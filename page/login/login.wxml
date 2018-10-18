@@ -1,5 +1,6 @@
 <view class="backview" wx:if="{{islogin}}">
-</view>
 <view class="authview"  wx:if="{{islogin}}">
-<button  open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">微信用户快速登录</button>
+<button  style="height:100%"open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">微信用户快速登录</button>
 </view>
+</view>
+

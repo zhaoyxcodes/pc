@@ -1,17 +1,22 @@
 {
   "pages": [
-          "page/index/index",
-    "page/home/home",
-      "page/home/certification/certification",
-
-
     "page/login/login",
+    "page/index/index",
+    "page/home/home",
+    "page/home/orderpreview/orderpreview",
+    "page/home/lift/lift",
     "page/release/release",
+    "page/detail/sucess/sucess",
+    "page/home/certification/certification",
     "page/detail/detail",
-   
     "page/home/money/money",
-  
-    "page/detail/sucess/sucess"
+    "page/home/service/service",
+    "page/detail/fail/fail",
+    "page/home/card/card",
+    "page/home/mylist/mylist",
+    "page/home/price/price",
+    "page/home/audit/audit",
+    "page/home/audit/auditdata"
   ],
   "window": {
     "backgroundTextStyle": "light",

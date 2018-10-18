@@ -1,0 +1,103 @@
+<view class="info" style="width:100%;height: {{max_height}}px;">
+<form bindsubmit="formSubmit">
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">姓名</view>
+                </view>
+           
+                <view class="weui-cell__bd weui-input" >
+                    {{name}}
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">身份证</view>
+                </view>
+               
+                 <view class="weui-cell__bd weui-input" >
+                    {{peoplenum}}
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">手机</view>
+                </view>
+             
+                <view class="weui-cell__bd weui-input" >
+                    {{phone}}
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">车牌号</view>
+                </view>
+           
+                <view class="weui-cell__bd weui-input" >
+                    {{carnum}}
+                </view>
+            </view>
+
+
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader">
+                        <view class="weui-uploader__hd">
+                            <view class="weui-uploader__title">行驶证</view>
+                        </view>
+                        <view class="weui-uploader__bd">
+                            <view class="weui-uploader__files">
+                              <block wx:for="{{pics2}}" wx:for-item="image">
+                                <view class="weui-uploader__file">
+                                  <image class="weui-uploader__img" src="{{image}}" data-src="{{image}}" bindtap="previewImage2"></image>
+                                </view>
+                              </block>
+                            </view>
+                          
+                        </view>
+                    </view>
+                </view>
+            </view>
+             <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader">
+                        <view class="weui-uploader__hd">
+                            <view class="weui-uploader__title">驾驶证</view>
+                        </view>
+                        <view class="weui-uploader__bd" >
+                          <view class="weui-uploader__files">
+                            <block wx:for="{{pics}}" wx:for-item="image">
+                              <view class="weui-uploader__file">
+                                <image class="weui-uploader__img" src="{{image}}" data-src="{{image}}" bindtap="previewImage"></image>
+                              </view>
+                            </block>
+                          </view>
+                       
+                        </view>
+                    </view>
+                </view>
+            </view>
+
+
+             <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">拒绝理由</view>
+                </view>
+             
+                <view class="weui-cell__bd weui-input" >
+                    <textarea class="weui-textarea" placeholder="请输入文本" bindblur="bindTextAreaBlur" auto-height value="{{remark}}" style="height: 3.3em" />
+                </view>
+            </view>
+
+      </view>
+
+
+   <view  class=" page__bd page__bd_spacing" style="width:95%;position: relative;top:20px; margin:auto auto">
+        <button class="weui-btn" id="tg" type="primary" loading="{{loading}}" disabled="{{disabled}}" form-type="submit">通过</button>
+         <button class="weui-btn" id="jj" type="primary" loading="{{loading}}" disabled="{{disabled}}" form-type="submit">拒绝</button>
+   </view> 
+
+    
+</form>
+
+</view>
