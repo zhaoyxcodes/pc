@@ -101,9 +101,12 @@ function mmm(title){
     duration: 2000
   })
 }
-function getDay() {
+function getDay(obj) {
   var date = new Date();
   var day = ['每天'];
+  if (obj==0){
+    day=[];
+  }
   day.push((date.getMonth() + 1) + '月' + date.getDate() + '日 今天');
   for (var i = 1; i <= 3; i++) {
     date.setDate(date.getDate() + 1);

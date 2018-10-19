@@ -78,9 +78,8 @@ Page({
       this.data.dqmarkers.length < 2 || this.data.detailjson==null ){
         return false;
       }
-    console.log(this.data.date)
     var data = {
-      date: JSON.stringify(this.data.date),
+      date: this.data.detailjson.startdate,
       user: JSON.stringify(wx.getStorageSync("user")),
       dataval: JSON.stringify({
         downaddress: this.data.ljdtitle, downmi: this.data.detailjson.GL_minend, startmi: this.data.detailjson.GL_minstart,

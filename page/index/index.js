@@ -38,6 +38,8 @@ Page({
     checkboxlist: [],
     peplenum: [1, 2, 3, 4, 5, 6], //乘坐人数
     pepleindex: 0,
+    multiArray0: [],
+    multiIndex0: [0, 0, 0],
     multiArray: [],
     multiIndex: [0, 0, 0],
     currentData: 0,
@@ -52,7 +54,27 @@ Page({
     })
   },
   onLoad() {
+  },
+  onShow(){
+    // app.getuser(function(e){
+    // })
     var _this = this;
+    wx.request({
+      url: app.data.aurl + '/home/querycertificationByUser',
+      data: { userid: app.globalData.userInfo.id },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res2) {
+        _this.setData({
+          carauth: res2.data.status,
+          p_phone: res2.data.phone
+        })
+      }
+    })
+
+
 
     wx.getLocation({
       type: 'gcj02',
@@ -73,31 +95,16 @@ Page({
       }
     })
 
-
-    this.data.multiArray = utils.getDay()
     this.setData({
-      multiArray: this.data.multiArray,
+      multiArray0: utils.getDay(0),
+      multiIndex0: [0, new Date().getHours(), 0]
+    })
+
+    this.setData({
+      multiArray: utils.getDay(1),
       multiIndex: [0, new Date().getHours(), 0]
     })
-  },
-  onShow(){
-    // app.getuser(function(e){
-    // })
-    var _this = this;
-    wx.request({
-      url: app.data.aurl + '/home/querycertificationByUser',
-      data: { userid: app.globalData.userInfo.id },
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      success: function (res2) {
-        _this.setData({
-          carauth: res2.data.status,
-          p_phone: res2.data.phone
-        })
-      }
-    })
+    
   },
   handletouchtart(e) {
     let pageX = e.touches[0].pageX;
@@ -420,13 +427,32 @@ Page({
     this.getPolyline();
   },
   //选择时间
-  bindMultiPickerChange: function(e) {
+  bindMultiPickerChange0: function(e) {
+    var val = e.detail.value
+    console.log('picker发送选择改变，携带值为', val)
+    this.setData({
+      multiIndex0: val
+    })
+  },
+  bindMultiPickerColumnChange0: function(e) {
+    var val = e.detail.value
+    console.log('修改的列为', e.detail.column, '，值为', val);
+
+    var data = {
+      multiIndex0: this.data.multiIndex0
+    };
+    data.multiIndex0[e.detail.column] = val;
+    console.log(this.data.multiIndex0)
+    this.setData(data);
+  },
+  //选择时间
+  bindMultiPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       multiIndex: e.detail.value
     })
   },
-  bindMultiPickerColumnChange: function(e) {
+  bindMultiPickerColumnChange: function (e) {
     console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
     var data = {
       multiIndex: this.data.multiIndex
@@ -499,8 +525,12 @@ Page({
       utils.showModal('', '请选择位置', false)
       return false;
     }
+    var newmult=[];
+    newmult.push((this.data.multiIndex0[0]+1))
+    newmult.push(this.data.multiIndex0[1] )
+    newmult.push(this.data.multiIndex0[2])
     wx.navigateTo({
-        url: '../release/release?markers='+JSON.stringify(this.data.markers)+"&date="+JSON.stringify(this.data.multiIndex)
+      url: '../release/release?markers=' + JSON.stringify(this.data.markers) + "&date=" + JSON.stringify(newmult)
      })
   },
   fb: function() {

@@ -146,7 +146,7 @@ Page({
       return false;
     }
     wx.navigateTo({
-      url: '../detail/detail?date=' + JSON.stringify(this.data.date) + '&markers=' + JSON.stringify(this.data.markers) + '&detailjson=' + JSON.stringify(detailjson) + '&ljdtitle=' + ljdtitle+'&lineid=' + lineid
+      url: '../detail/detail?date=' + JSON.stringify(this.data.date)+'&markers=' + JSON.stringify(this.data.markers) + '&detailjson=' + JSON.stringify(detailjson) + '&ljdtitle=' + ljdtitle+'&lineid=' + lineid
     })
   }
 })

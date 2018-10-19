@@ -10,9 +10,9 @@
       <input class="tui-map-input w_input" placeholder="起点" bindtap="getAddress" disabled="true" value="{{starttitle}}" id="start"></input>
       <input class="tui-map-input w_input" placeholder="终点" bindtap="getAddress" disabled="true" value="{{endtitle}}" id="end"></input>
 
-      <picker class=" tui-map-input" style="width:100%;"  mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+      <picker class=" tui-map-input" style="width:100%;"  mode="multiSelector" bindchange="bindMultiPickerChange0" bindcolumnchange="bindMultiPickerColumnChange0" value="{{multiIndex0}}" range="{{multiArray0}}">
         <view class="picker"  style="margin-left: -7px; ">
-          {{multiArray[0][multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}}{{multiArray[2][multiIndex[2]]}}出发
+          {{multiArray0[0][multiIndex0[0]]}} {{multiArray0[1][multiIndex0[1]]}}{{multiArray0[2][multiIndex0[2]]}}出发
         </view>
       </picker>
 
