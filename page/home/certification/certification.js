@@ -14,11 +14,12 @@ Page({
     max_height: app.globalData.w_height,
     max_width: app.globalData.w_width,
 
-    ishidden:0,//0编辑1查看
+    ishidden:1,//0编辑1查看
 
     userid: null,remark:'',
     name: null, peoplenum: null, phone: null, carnum: null
-    , carlicense:null,  driverlicense:null,id:null,status:null
+    , carlicense: null, driverlicense: null, id: null, status: null, carbrand: null, carcolor:null,
+    colorlist: app.data.colorlist,colorindex:0
   },
 
   /**
@@ -26,6 +27,11 @@ Page({
    */
   onLoad: function (options) {
     this.getdata()
+  },
+  bindPickerChange: function (e) {
+    this.setData({
+      carcolor: e.detail.value
+    })
   },
   getdata:function(){
     var _this=this;
@@ -51,9 +57,11 @@ Page({
             status:res2.data.status,
             ishidden: 1, remark: res2.data.refuseremark,
             name: res2.data.name, peoplenum: res2.data.peoplenum, phone: res2.data.phone, carnum: res2.data.carnum
-            , carlicense: res2.data.carlicense, driverlicense: res2.data.driverlicense
+            , carlicense: res2.data.carlicense, driverlicense: res2.data.driverlicense, carbrand: res2.data.carbrand, carcolor: res2.data.carcolor
           })
 
+        }else{
+          _this.setData({ ishidden: 0})
         }
       }
     })
@@ -176,6 +184,11 @@ Page({
       carnum: e.detail.value
     })
   },
+  bindcarbrand(e) {
+    this.setData({
+      carbrand: e.detail.value
+    })
+  },
   formSubmit:function(e){
     if ('bianji' == e.detail.target.id){
       this.setData({
@@ -196,6 +209,9 @@ Page({
     } else if (this.data.phone == null || this.data.phone.length <= 0) {
       utils.showModal('', '请输入电话方式', false)
       return false;
+    } else if (this.data.carbrand == null || this.data.carbrand.length <= 0) {
+      utils.showModal('', '请输入车型并选择颜色', false)
+      return false;
     } else if (this.data.carnum == null || this.data.carnum.length <= 0) {
       utils.showModal('', '请输入车牌号码', false)
       return false;
@@ -205,7 +221,7 @@ Page({
       return false;
     } 
    var dataval= {
-      id: _this.data.id, userid: app.globalData.userInfo.id,
+     id: _this.data.id, userid: app.globalData.userInfo.id, carbrand: _this.data.carbrand, carcolor: _this.data.colorindex,
         name: _this.data.name, peoplenum: _this.data.peoplenum, phone: _this.data.phone, carnum: _this.data.carnum
           , carlicense: _this.data.carlicense, driverlicense: _this.data.driverlicense
     }
@@ -214,28 +230,31 @@ Page({
       title: "", showCancel: true,
       content: "确定提交审核",
       success: function (isok) {
-        wx.request({
-          url: app.data.aurl + '/home/insertCertification',
-          data: dataval,
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          success: function (res2) {
-            var data=res2.data;
-            if(data=="0"){
-              utils.showModal('', '提交失败', false)
-            } else if (data == "1") {
-              wx.showModal({
-                title: "", showCancel: false,
-                content: "提交成功",
-                success: function (isok) {
-                  wx.navigateBack();
-                }
-              })
-            }
-          }
-        })
+       if(isok.confirm){
+         wx.request({
+           url: app.data.aurl + '/home/insertCertification',
+           data: dataval,
+           method: 'POST',
+           header: {
+             'content-type': 'application/x-www-form-urlencoded'
+           },
+           success: function (res2) {
+             var data = res2.data;
+             if (data == "0") {
+               utils.showModal('', '提交失败', false)
+             } else if (data == "1") {
+               wx.showModal({
+                 title: "", showCancel: false,
+                 content: "提交成功",
+                 success: function (isok) {
+                   wx.navigateBack();
+                 }
+               })
+             }
+           }
+         })
+       }
+        
       }
     })
 

@@ -44,6 +44,7 @@ Page({
           var data = res2.data;
           if (data != null && data.length>0){
             data[0].dayHName = utils.getDayName(data[0].sdate)
+            data[0].cz_carcolor = app.data.colorlist[data[0].cz_carcolor]
             var geomli = utils.geompoint(data[0].start_geom);
             _this.setData({
               data: data[0],

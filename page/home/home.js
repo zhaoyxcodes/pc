@@ -8,13 +8,16 @@ Page({
     userimg:'../../img/user/imguser.jpg',
     username:"未登录",
     max_height: app.globalData.w_height,
-    isadm:''
+    isadm:'',
+
+    carauth: app.globalData.carauth,//车主认证1
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(app.globalData.carauth)
     this.setData({
       isadm:app.globalData.userInfo.isadm
     })

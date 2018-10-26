@@ -37,8 +37,24 @@
                     {{carnum}}
                 </view>
             </view>
-
-
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">车型</view>
+                </view>
+           
+                <view class="weui-cell__bd weui-input" >
+                    {{carbrand}}
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">颜色</view>
+                </view>
+           
+                <view class="weui-cell__bd weui-input" >
+                    {{colorlist[carcolor]}}
+                </view>
+            </view>
             <view class="weui-cell">
                 <view class="weui-cell__bd">
                     <view class="weui-uploader">

@@ -4,13 +4,23 @@
 </view>
 
 <view class="layout_horizontal sort">
-<view>周边1000米</view><view >线路优先</view>
+ <picker bindchange="bindPickerStartEnd" value="{{startendindex}}" range="{{startendlist}}"style="width:22%;">
+        {{startendlist[startendindex]}}
+  </picker>
+
+   <picker bindchange="bindPickerStartEndvalue" value="{{valueindex}}" range="{{startendvalue}}" style="width:28%;">
+         {{startendvalue[valueindex]}}
+  </picker>
+
+ <picker bindchange="bindPickertime" value="{{starttimeindex}}" range="{{starttimelist}}" style="width:50%;">
+         {{starttimelist[starttimeindex]}}
+  </picker>
 </view>
 
 
 <view class="container" style="padding:0rpx">
   <!--垂直滚动，这里必须设置高度-->
-  <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad" bindscroll="scroll">
+  <scroll-view  wx:if="{{nolist==false}}" scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad" bindscroll="scroll">
     <view class="item" wx:for="{{list}}" wx:key="item" >
       <!-- <image class="img" src="{{item.pic_url}}"></image> -->
 
@@ -27,7 +37,7 @@
         <view class="layout_horizontal">
         <view wx:if="{{item.everyday==1}}">每天{{item.dayHName}}</view>
         <view wx:if="{{item.everyday==0}}">{{item.startdate}}</view>出发
-        <view >剩余{{item.peplenum}}个空位</view>
+        <view >剩余{{item.peplenum-item.ydcount}}个空位</view>
         </view>
             <view class="weui-media-box__info" style="margin-top:10px;font-size:12px;" >
                         <view class="weui-media-box__info__meta">沿途在（{{endjltitle[index]}}）下车后步行{{item.GL_minend}}到达终点</view>
@@ -41,5 +51,9 @@
     <loading hidden="{{hidden}}" bindchange="loadingChange">
       加载中...
     </loading>
+  </view>
+
+  <view wx:if="{{nolist}}" class="nolist">
+    <view style="width:50%">当前线路暂没有车主发布，点击<text>搭车</text>分享给周边车主</view>
   </view>
 </view>

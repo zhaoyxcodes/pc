@@ -44,7 +44,7 @@ Page({
     multiIndex: [0, 0, 0],
     currentData: 0,
 
-    carauth:0,//车主认证1
+    carauth: 0,//车主认证1
     ismsg:0,//是否有提醒
     dnone:'none'
   },
@@ -54,28 +54,7 @@ Page({
     })
   },
   onLoad() {
-  },
-  onShow(){
-    // app.getuser(function(e){
-    // })
     var _this = this;
-    wx.request({
-      url: app.data.aurl + '/home/querycertificationByUser',
-      data: { userid: app.globalData.userInfo.id },
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      success: function (res2) {
-        _this.setData({
-          carauth: res2.data.status,
-          p_phone: res2.data.phone
-        })
-      }
-    })
-
-
-
     wx.getLocation({
       type: 'gcj02',
       success(res) {
@@ -95,16 +74,23 @@ Page({
       }
     })
 
-    this.setData({
-      multiArray0: utils.getDay(0),
-      multiIndex0: [0, new Date().getHours(), 0]
-    })
 
     this.setData({
+      multiArray0: utils.getDay(0),
+      multiIndex0: [0, new Date().getHours(), 0],
       multiArray: utils.getDay(1),
       multiIndex: [0, new Date().getHours(), 0]
     })
-    
+    if (app.globalData.userInfo.carstatus != null && app.globalData.userInfo.carstatus.length>0){
+      this.setData({
+        carauth: app.globalData.userInfo.carstatus
+      })
+    }
+    if (app.globalData.userInfo.carphone != null && app.globalData.userInfo.carphone.length > 0) {
+      this.setData({
+        p_phone: app.globalData.userInfo.carphone
+      })
+    }
   },
   handletouchtart(e) {
     let pageX = e.touches[0].pageX;
@@ -155,28 +141,14 @@ Page({
     if (pagenum == 0 && this.data.currentLo != null && this.data.currentLa != null && this.data.newCurrentLo != null &&
       this.data.newCurrentLa != null && this.data.starttitle != null && this.data.endtitle != null) {
       this.saveMark(this.data.currentLo, this.data.currentLa, this.data.newCurrentLo, this.data.newCurrentLa, this.data.starttitle, this.data.endtitle);
-      this.saveincludeP()
     } else if (pagenum == 1 && this.data.currentLo2 != null && this.data.currentLa2 != null && this.data.newCurrentLo2 != null &&
       this.data.newCurrentLa2 != null && this.data.starttitle2 != null && this.data.endtitle2 != null) {
       this.saveMark(this.data.currentLo2, this.data.currentLa2, this.data.newCurrentLo2, this.data.newCurrentLa2, this.data.starttitle2, this.data.endtitle2);
       this.getPolyline();
     }
   },
-  //将乘车点加入到地图点中
-  saveincludeP() {
-    this.data.includePoints.push({
-      longitude: this.data.currentLo,
-      latitude: this.data.currentLa
-    });
-    this.data.includePoints.push({
-      longitude: this.data.newCurrentLo,
-      latitude: this.data.newCurrentLa
-    });
-    this.setData({
-      includePoints: this.data.includePoints
-    })
-  },
   saveMark(currentLo2, currentLa2, newCurrentLo2, newCurrentLa2, starttitle2, endtitle2) {
+    this.data.markers=[];
     var imgurl = '../../img/mapicon_navi_s.png'
     this.data.markers.push({
       id: "start",
@@ -186,6 +158,10 @@ Page({
       iconPath: imgurl,
       width: 23,
       height: 33
+    });
+    this.data.includePoints.push({
+      longitude: currentLo2,
+      latitude: currentLa2
     });
     this.data.includePoints.push({
       longitude: (parseFloat(currentLo2) - app.data.bj),
@@ -201,13 +177,18 @@ Page({
       width: 23,
       height: 33
     });
+
+    this.data.includePoints.push({
+      longitude: newCurrentLo2,
+      latitude: newCurrentLa2
+    });
     this.data.includePoints.push({
       longitude: (parseFloat(newCurrentLo2) - app.data.bj),
       latitude: (parseFloat(newCurrentLa2) + app.data.bj2)
     })
     this.setData({
-      includePoints: this.data.includePoints,
-      markers: this.data.markers
+      markers: this.data.markers,
+      includePoints: this.data.includePoints
     });
   },
   getAddress(e) {
@@ -240,10 +221,6 @@ Page({
           });
          
         }
-        _this.data.includePoints.push({
-          longitude: (parseFloat(res.longitude) - app.data.bj),
-          latitude: (parseFloat(res.latitude) + app.data.bj2)
-        })
         markers.push({
           id: e.currentTarget.id,
           longitude: res.longitude,
@@ -257,11 +234,13 @@ Page({
 
         _this.setData({
           markers: markers,
-          includePoints: _this.data.includePoints,
           checkindex: 0
         });
         if (_this.data.starttitle.length > 0 && _this.data.endtitle.length > 0) {
-          _this.saveincludeP()
+          _this.setData({
+            includePoints: []
+          });
+          _this.saveMark(_this.data.currentLo, _this.data.currentLa, _this.data.newCurrentLo, _this.data.newCurrentLa, _this.data.starttitle, _this.data.endtitle);
         }
 
       }
@@ -306,17 +285,19 @@ Page({
           height: 33
         });
 
-        _this.data.includePoints.push({
-          longitude: (parseFloat(res.longitude) - app.data.bj),
-          latitude: (parseFloat(res.latitude) + app.data.bj2)
-        })
         _this.setData({
           markers: markers,
-          includePoints: _this.data.includePoints,
           checkindex: 0,
           checkboxlist: []
         });
         if (_this.data.starttitle2.length > 0 && _this.data.endtitle2.length > 0) {
+          _this.setData({
+            distance: 0,
+            duration: 0,
+            polyline: [],
+            includePoints: []
+          });
+          _this.saveMark(_this.data.currentLo2, _this.data.currentLa2, _this.data.newCurrentLo2, _this.data.newCurrentLa2, _this.data.starttitle2, _this.data.endtitle2);
           _this.getPolyline();
         }
       }
@@ -374,19 +355,14 @@ Page({
         }
         if (self.data.polyline.length > 1) {
           self.setData({
-            s_height: self.data.s_height + 140
+            s_height: 330 + 140
           });
         } else {
           self.setData({
             s_height: 330 //page2
           });
         }
-        for (var b = 0; b < self.data.markers.length; b++) {
-          points2.push({
-            longitude: self.data.markers[b].longitude,
-            latitude: self.data.markers[b].latitude
-          });
-        }
+      
         self.setData({
           checkboxlist: ["0"], //默认选择线路
           includePoints: self.data.includePoints,
@@ -583,9 +559,18 @@ Page({
       success: function(res2) {
         console.log(res2.data)
         if (res2.data == 1) {
-
-        } else {
-
+          wx.navigateTo({
+            url: '../home/service/service',
+          })
+        } else if (res2.data == 11 || res2.data == '11') {
+          utils.showModal('', '该时间前后1小时已存在发布信息，请重新选择时间。', false)
+          return false;
+        } else if (res2.data == 12 || res2.data == '12') {
+          utils.showModal('', '发布时间必须大于当前时间，请重新选择时间。', false)
+          return false;
+        }  else {
+          utils.showModal('', '预定失败', false)
+          return false;
         }
 
       }

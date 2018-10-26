@@ -16,7 +16,30 @@ Page({
     date: [],
 
     amap:null,
-    key: '6f2ae22158f09ae7777a720c072deeb8'
+    key: '6f2ae22158f09ae7777a720c072deeb8',
+
+    nolist:false,
+    startendlist:['起点','终点'],startendindex:0,
+    startendvalue:['请选择', '周边100米', '周边200米', '周边300米', '周边400米', '周边500米', '周边1000米', '周边1500米', '周边2000米'],valueindex:0,
+    starttimelist: ['请选择', '出发时间前后5分钟', '出发时间前后10分钟'],starttimeindex:0
+  },
+  bindPickerStartEndvalue: function (e) {
+    this.setData({
+      valueindex: e.detail.value
+    })
+    this.loadMore();
+  },
+  bindPickerStartEnd: function(e) {
+    this.setData({
+      startendindex: e.detail.value,
+      valueindex:0
+    })
+  },
+  bindPickertime: function (e) {
+    this.setData({
+      starttimeindex: e.detail.value
+    })
+    this.loadMore();
   },
   onLoad: function(options) {
     // options.markers ='[{"id":"start","longitude":108.895903,"latitude":34.170034,"title":"曹家堡公租房小区","iconPath":"../../img/mapicon_navi_s.png","width":23,"height":33},{"id":"end","longitude":108.86743,"latitude":34.18056,"title":"付村花园东区","iconPath":"../../img/mapicon_navi_e.png","width":23,"height":33}]'
@@ -71,9 +94,23 @@ Page({
       utils.showModal('', '未能获取到您的出发时间，请重新选择', false)
       return false;
     }
+    var start_d=''
+    var end_d=''
+    if (this.data.startendindex==0){
+      start_d=this.jlutil()
+    }else{
+      end_d = this.jlutil()
+    }
+    var starttw=''
+    if (this.data.starttimeindex==1){
+      starttw=5;
+    } else if (this.data.starttimeindex == 2) {
+      starttw = 10;
+    }
     var dataval = {
       pageSize: this.data.pageSize,
       pageNo: this.data.pageNo,
+      start_d: start_d, end_d: end_d, starttw: starttw,
       markers: JSON.stringify(this.data.markers),
         date: JSON.stringify(this.data.date),
       peplenum:"",
@@ -88,7 +125,8 @@ Page({
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-      success: function(res2) {
+      success: function (res2) {
+        console.log(res2.data )
         if (res2.data != null && res2.data.length>0) {
           var l = that.data.list
           for (var i = 0; i < res2.data.length; i++) {
@@ -118,6 +156,7 @@ Page({
           that.setData({
             page: that.data.page + 1,
             list: l,
+            nolist: false,
             hidden: true
           });
 
@@ -125,6 +164,7 @@ Page({
         } else {
           that.setData({
             list: [],
+            nolist: true,
             hidden: true
           });
         }
@@ -132,6 +172,23 @@ Page({
       }
     })
 
+  },
+  jlutil:function(){
+    var s='';
+    if (this.data.valueindex > 0) {
+      if (this.data.valueindex < 6) {
+        s = this.data.valueindex * 100;
+      } else {
+        if (this.data.valueindex == 6) {
+          s = 1000;
+        } else if (this.data.valueindex == 7) {
+          s = 1500;
+        } else if (this.data.valueindex == 8) {
+          s = 2000;
+        }
+      }
+    }
+    return s;
   },
   linkDetail:function(e){
     var lineid=e.currentTarget.id;

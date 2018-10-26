@@ -1,5 +1,5 @@
 <view class="page">
-  <view class="page__hd" style="background-color:#fff;">
+  <view class="page__hd" style="background-color:#4D8AD7;color:#fff">
     <view class="page__title">我的服务记录</view>
     <view class="page__desc"></view>
   </view>
@@ -105,7 +105,7 @@
     <view class="weui-panel" style="width:100%">
       <!-- <view class="weui-panel__hd">已完成的订单</view> -->
       <view class="weui-panel__bd">
-        <view class="weui-media-box weui-media-box_text" wx:for="{{datalist}}" wx:item="item" wx:if="{{item.status==2||item.status==3||item.status==4||item.status==5}}" data-optype="{{item.status}}" id="{{item.id}}" bindtap='link_p'>
+        <view class="weui-media-box weui-media-box_text" wx:for="{{datalist}}" wx:item="item" wx:if="{{item.status==6||item.status==2||item.status==3||item.status==4||item.status==5}}" data-optype="{{item.status}}" id="{{item.id}}" bindtap='link_p'>
           <view class="layout_horizontal">
             <view style="width:60%;">
               <view class="weui-media-box__title weui-media-box__title_in-text">{{item.starttitle}}</view>
@@ -115,7 +115,9 @@
               <text>元</text>
             </view>
             <view class="weui-cell__ft weui-cell__ft_in-access" style="width:70px;height:18px;font-size:12px;text-align:left;vertical-align: text-top;"><text wx:if="{{item.status==2}}">已完成</text><text wx:if="{{item.status==3}}">乘客已取消</text>
-            <text wx:if="{{item.status==4}}">车主已取消</text><text wx:if="{{item.status==5}}">乘客已删除</text></view>
+            <text wx:if="{{item.status==4}}">车主已取消</text><text wx:if="{{item.status==5}}">乘客已删除</text>
+            <text wx:if="{{item.status==5}}">已过期</text>
+            </view>
           </view>
           <view class="weui-media-box__desc">沿途在（{{item.downaddress}}）下车后步行{{item.downmi}}到达终点</view>
           <view class="weui-media-box__info">

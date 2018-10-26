@@ -16,7 +16,7 @@
         </view>
       </picker>
 
-      <view class="map-1" style="right:40rpx;" bindtap='dc'>
+      <view class="map-1" style="right:40rpx;border:2px solid #6495ED;"  bindtap='dc'>
         <image src="../../img/che.png"></image>
         <view>搭车</view>
       </view>

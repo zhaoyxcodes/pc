@@ -19,9 +19,23 @@ Page({
     polyline: [],
     includePoints: [],
 
-    offer: null, phone: null, remark: null
+    offer: null, phone: null, remark: null,
+    orderlist:[]//已预定人员
   },
-
+  calling: function () {
+    if (this.data.detailjson.phone==null){
+      return false;
+    }
+    wx.makePhoneCall({
+      phoneNumber: this.data.detailjson.phone, //此号码并非真实电话号码，仅用于测试
+      success: function () {
+        console.log("拨打电话成功！")
+      },
+      fail: function () {
+        console.log("拨打电话失败！")
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -49,6 +63,22 @@ Page({
       var endgeomli =utils.geompoint(this.data.detailjson.end_geom)
       this.saveMark(startgeomli[0], startgeomli[1], endgeomli[0], endgeomli[1],'','')
       this.detail()
+      if (this.data.lineid != null && this.data.lineid.length>0){
+        var _this=this;
+        wx.request({
+          url: app.data.aurl + '/order/queryReservationByLine',
+          data: { lineid: _this.data.lineid},
+          method: 'POST',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          success: function (res3) {
+            _this.setData({
+              orderlist:res3.data
+            })
+          }
+        })
+      }
     }
   },
   bindoffer(e){
@@ -102,29 +132,43 @@ Page({
             }
           })
       }
-    
-    wx.request({
-      url: app.data.aurl +'/car/reservation',
-      data: data,
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      success: function (res2) {
-        if (res2.data == 1 || res2.data == '1') {
-          utils.showModal('', '预定失败，您已预定了此时间段(' + that.data.detailjson.startdate+'前后区间1小时)的订单，你重新选择时间段预定！', false)
-          return false;
-        }else if(res2.data==0){
-          utils.showModal('', '预定失败', false)
-          return false;
-        }else{
-          wx.redirectTo({
-            url: 'sucess/sucess?rid=' + res2.data
+    wx.showModal({
+      title: "", showCancel: true,
+      content: "确定预定吗",
+      success: function (isok) {
+        if (isok.confirm) {
+          wx.request({
+            url: app.data.aurl + '/car/reservation',
+            data: data,
+            method: 'POST',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            success: function (res2) {
+              if (res2.data == 1 || res2.data == '1') {
+                utils.showModal('', '预定失败，您已预定了此时间段(' + that.data.detailjson.startdate + '前后区间1小时)的订单，你重新选择时间段预定！', false)
+                return false;
+              } else if (res2.data == 10 || res2.data == '10') {
+                utils.showModal('', '已经预定满额了(预定人数：' + that.data.detailjson.peplenum+')。', false)
+                return false;
+              }  else if (res2.data == 12 || res2.data == '12') {
+                utils.showModal('', '预定时间(' + that.data.detailjson.startdate + ')必须大于当前时间，请重新选择时间。', false)
+                return false;
+              } else if (res2.data == 0) {
+                utils.showModal('', '预定失败', false)
+                return false;
+              } else {
+                wx.redirectTo({
+                  url: 'sucess/sucess?rid=' + res2.data
+                })
+
+              }
+            }
           })
-          
         }
       }
     })
+    
   },
   detail(){
     var self=this

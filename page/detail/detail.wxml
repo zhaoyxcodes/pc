@@ -4,7 +4,7 @@
       <image src="{{detailjson.img}}" style="width:34px;height:34px;border-radius:50%" />
       <text space="nbsp">  {{detailjson.username}}   </text>
     </view>
-    <view style="align-items:center; justify-content: center;display:flex;">iphone</view>
+    <view style="align-items:center; justify-content: center;display:flex;" bindtap="calling">打电话</view>
   </view>
 
 
@@ -47,7 +47,7 @@
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_input weui-cell_warn">
       <view class="weui-cell__hd">
-        <view class="weui-label">车费</view>
+        <view class="weui-label">打赏</view>
       </view>
       <view class="weui-cell__bd">
         <input class="weui-input" placeholder="请输入金额" bindinput="bindoffer" value="{{offer}}" />
@@ -94,20 +94,18 @@
 
     <view class="weui-cells__title">已预订列表</view>
     <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell">
+      <view class="weui-cell" wx:for="{{orderlist}}" wx:item="{{item}}">
         <view class="weui-cell__hd">
-          <image src="{{detailjson.img}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="{{item.img}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
-        <view class="weui-cell__bd">zyx</view>
-        <view class="weui-cell__ft">132*****370</view>
-      </view>
-      <view class="weui-cell">
-        <view class="weui-cell__hd">
-          <image src="{{detailjson.img}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        <view class="weui-cell__bd">{{item.username}}</view>
+        <view class="weui-cell__ft">
+          <text wx:if="{{item.status==0}}">预定中</text>
+          <text wx:if="{{item.status==1}}">已预定</text>
+          <text wx:if="{{item.status==2}}">已完成</text>
         </view>
-        <view class="weui-cell__bd">小豌豆</view>
-        <view class="weui-cell__ft">132*****370</view>
       </view>
+    
     </view>
 
 

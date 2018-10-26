@@ -1,5 +1,6 @@
 App({
   data:{
+    colorlist: ['白色', '黑色', '棕色', '灰色'],
     bj: 0.002,//向左
     bj2: 0.002,//向上
     secret:"6a40c709e9eb56f2881db739ef98ff7a",
@@ -21,6 +22,7 @@ App({
         that.globalData.w_height = res.windowHeight
       }
     })
+    
   }
   ,getuser:function(_success){
     var that = this;
@@ -64,6 +66,7 @@ App({
                   console.log(res2.data.sessionkey)
                   if (typeof (res2) != 'undefined' && res2.data.sessionkey.length > 0) {
                     wx.setStorage({ key: "user", data: res2.data })
+                    that.globalData.userInfo = res2.data;
                     success1(1);
                   }
                 }

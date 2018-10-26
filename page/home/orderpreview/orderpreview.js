@@ -18,13 +18,27 @@ Page({
     lineid:null,
     data:null,
 
-    carnum:null,
+    certification:null,
     rid:null,
     type:null,//0乘客1车主
     optype: null//预订中0 已预订1 已完成2 3乘客取消预约4车主取消预约5乘客删除
   },
   onShow:function(){
  
+  },
+  calling: function () {
+    if (this.data.certification.phone == null) {
+      return false;
+    }
+    wx.makePhoneCall({
+      phoneNumber: this.data.certification.phone, //此号码并非真实电话号码，仅用于测试
+      success: function () {
+        console.log("拨打电话成功！")
+      },
+      fail: function () {
+        console.log("拨打电话失败！")
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -59,8 +73,10 @@ Page({
       },
       success: function (res2) {
         console.log(res2.data)
+        var data = res2.data
+        data.carcolor = app.data.colorlist[data.carcolor]
         _this.setData({
-          carnum: res2.data.carnum
+          certification: data
         })
       }
     })
@@ -260,7 +276,7 @@ Page({
           "keyword2": { "value": that.data.data.username, "color": "#173177" },
           "keyword3": { "value": that.data.data.sdate, "color": "#173177" },
           "keyword4": { "value": that.data.data.phone, "color": "#173177" },
-          "keyword5": { "value": that.data.carnum, "color": "#173177" },
+          "keyword5": { "value": that.data.certification.carnum, "color": "#173177" },
           "keyword6": { "value": that.data.data.offer+'元', "color": "#173177" },
           "keyword7": { "value": '请在' + that.data.data.start_title + "上车在" + that.data.data.downaddress + '下车', "color": "#173177" },
         } 

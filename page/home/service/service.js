@@ -98,7 +98,7 @@ Page({
             _this.data.isydz=true;
           } else if (res2.data[i].status == 1){
             _this.data.isyd = true;
-          } else if (res2.data[i].status == 2 || res2.data[i].status == 3 || res2.data[i].status == 4 || res2.data[i].status == 5) {
+          } else if (res2.data[i].status == 6 ||res2.data[i].status == 2 || res2.data[i].status == 3 || res2.data[i].status == 4 || res2.data[i].status == 5) {
             _this.data.iswc = true;
           }
         }

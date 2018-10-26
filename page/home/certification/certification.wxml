@@ -48,7 +48,28 @@
                     {{carnum}}
                 </view>
             </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">车型</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{ishidden==0}}">
+                    <input class="weui-input"  value="{{carbrand}}" bindchange="bindcarbrand"/>
+                </view>
+                <view class="weui-cell__ft" wx:if="{{ishidden==0}}">
+                    <view class="weui-vcode-btn" wx:if="{{carcolor!=null}}">{{colorlist[carcolor]}}</view>
 
+          
+                    <view class="weui-vcode-btn" wx:if="{{carcolor==null}}" > 
+                    <picker bindchange="bindPickerChange" value="{{colorindex}}" range="{{colorlist}}" >
+          <view >
+           {{colorlist[colorindex]}}
+          </view>
+        </picker></view>
+                </view>
+                <view class="weui-cell__bd weui-input" wx:if="{{ishidden==1}}">
+                    {{colorlist[carcolor]}}{{carbrand}}
+                </view>
+            </view>
 
             <view class="weui-cell">
                 <view class="weui-cell__bd">

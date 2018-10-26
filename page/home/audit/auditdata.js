@@ -11,11 +11,11 @@ Page({
     pics2: [],
     max_height: app.globalData.w_height,
     max_width: app.globalData.w_width,
-
+    colorlist: app.data.colorlist,
 
     userid: null,
     name: null, peoplenum: null, phone: null, carnum: null
-    , carlicense: null, driverlicense: null, id: null, status: null, remark:''
+    , carlicense: null, driverlicense: null, id: null, status: null, remark: '', carbrand: null, carcolor:null
   },
   bindTextAreaBlur(e) {
     this.setData({
@@ -54,7 +54,8 @@ Page({
             userid: res2.data.user_id,
             status: res2.data.status,
             name: res2.data.name, peoplenum: res2.data.peoplenum, phone: res2.data.phone, carnum: res2.data.carnum
-            , carlicense: res2.data.carlicense, driverlicense: res2.data.driverlicense
+            , carlicense: res2.data.carlicense, driverlicense: res2.data.driverlicense, carbrand: res2.data.carbrand, 
+            carcolor: res2.data.carcolor
           })
 
         }
@@ -90,28 +91,31 @@ Page({
       title: "", showCancel: true,
       content: "确定提交",
       success: function (isok) {
-        wx.request({
-          url: app.data.aurl + '/home/updateCertificationstatus',
-          data: { status: status, id: _this.data.id, remark: _this.data.remark},
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          success: function (res2) {
-            var data = res2.data;
-            if (data == "0") {
-              utils.showModal('', '提交失败', false)
-            } else if (data == "1") {
-              wx.showModal({
-                title: "", showCancel: false,
-                content: "审核成功",
-                success: function (isok) {
-                  wx.navigateBack();
-                }
-              })
+        if (isok.confirm) {
+          wx.request({
+            url: app.data.aurl + '/home/updateCertificationstatus',
+            data: { status: status, id: _this.data.id, remark: _this.data.remark },
+            method: 'POST',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            success: function (res2) {
+              var data = res2.data;
+              if (data == "0") {
+                utils.showModal('', '提交失败', false)
+              } else if (data == "1") {
+                wx.showModal({
+                  title: "", showCancel: false,
+                  content: "审核成功",
+                  success: function (isok) {
+                    wx.navigateBack();
+                  }
+                })
+              }
             }
-          }
-        })
+          })
+        }
+       
       }
     })
 
